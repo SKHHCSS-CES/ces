@@ -389,7 +389,7 @@
       font-weight: 800;
     }
     .toggle-body strong,
-    .toggle-body span {
+    .toggle-body span:not(.tick-box) {
       color: var(--teal);
     }
     .toggle-card.open .toggle-body {
@@ -585,6 +585,506 @@
       color: #fff;
       border-color: var(--teal);
     }
+  
+    /* ================= HIERARCHICAL CHECK / TICK SYSTEM (ZERO LAYOUT SHIFT) ================= */
+    .tick-box {
+      width: 1.3rem;
+      height: 1.3rem;
+      min-width: 1.3rem;
+      max-width: 1.3rem;
+      border-radius: 5px;
+      border: 2px solid #94a3b8;
+      background: #ffffff;
+      color: transparent !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 900;
+      line-height: 1;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      cursor: pointer;
+      user-select: none;
+      margin-top: 0.08rem;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .tick-box::after {
+      content: "✓";
+    }
+    .tick-box:hover {
+      border-color: #16a34a;
+      background: #f0fdf4;
+    }
+    .tick-box.is-ticked {
+      background: #16a34a;
+      border-color: #16a34a;
+      color: #ffffff !important;
+      box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.18);
+    }
+
+    /* Section Header Ticked State (Zero Layout Shift) */
+    .section-head-toggle {
+      border: 1.5px solid transparent;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+    .section-head-toggle.is-ticked {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .section-head-left {
+      display: grid;
+      grid-template-columns: 1.3rem 1fr;
+      column-gap: 8px;
+      align-items: center;
+      min-width: 0;
+    }
+    .section-head-left > .tick-box {
+      margin-top: 0;
+    }
+
+    /* Headpoint Card Ticked State (Green Check Badge + Soft Green Border, Zero Layout Shift) */
+    .toggle-card.is-ticked {
+      border-style: solid;
+      border-color: #22c55e;
+      background: #f0fdf4;
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.12);
+    }
+    .toggle-card.open.is-ticked {
+      border-style: solid;
+      border-color: #16a34a;
+      background: #f0fdf4;
+    }
+    .toggle-card.is-ticked .toggle-chip {
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .toggle-card.open.is-ticked .toggle-chip {
+      background: #16a34a;
+      color: #ffffff;
+    }
+
+    /* Tab-Stop Aligned Headpoint Title Row (only when card has .tick-box) */
+    .toggle-title-wrap.has-tick {
+      display: grid;
+      grid-template-columns: 1.3rem 1fr;
+      column-gap: 7px;
+      align-items: center;
+      font-weight: 800;
+      font-size: 1.02rem;
+      color: var(--ink);
+      line-height: 1.25;
+      min-width: 0;
+    }
+    .toggle-title-wrap.has-tick > .tick-box {
+      margin-top: 0;
+    }
+    .toggle-title-inner {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+    }
+    .head-prefix {
+      display: inline-block;
+      width: 1.5em;
+      flex-shrink: 0;
+      text-align: left;
+    }
+    #conseq-group .toggle-card {
+      padding: 11px 11px;
+    }
+    #conseq-group .toggle-title-inner span {
+      font-size: 0.86rem !important;
+    }
+
+    /* Tab-Stop Aligned Subpoint Rows (Zero Layout Shift — Box, Emoji & Text Always on Same Row) */
+    .subpoint-list {
+      display: grid;
+      grid-template-columns: 1.3rem max-content 1fr;
+      column-gap: 7px;
+      row-gap: 4px;
+    }
+    .subpoint-row {
+      display: grid;
+      grid-template-columns: 1.3rem max-content 1fr;
+      column-gap: 7px;
+      align-items: start;
+      padding: 3px 6px;
+      margin: 0 -6px;
+      border-radius: 8px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+    .subpoint-list > .subpoint-row {
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
+    }
+    #kw-group .subpoint-row,
+    #ways4-group .subpoint-row {
+      grid-template-columns: 1.3rem 2.5em 1fr;
+    }
+    .subpoint-row.no-prefix {
+      grid-template-columns: 1.3rem 1fr;
+    }
+    .subpoint-list > .subpoint-row.no-prefix {
+      grid-template-columns: subgrid;
+    }
+    .subpoint-list > .subpoint-row.no-prefix > .subpoint-text {
+      grid-column: 2 / -1;
+    }
+    .subpoint-row:hover {
+      background: rgba(42, 143, 173, 0.08);
+    }
+    .subpoint-row.is-ticked {
+      background: rgba(220, 252, 231, 0.65);
+      border-color: #86efac;
+    }
+    .subpoint-prefix {
+      white-space: nowrap;
+      line-height: 1.38;
+      font-weight: 700;
+      text-align: right;
+      justify-self: end;
+    }
+    .subpoint-text {
+      min-width: 0;
+      line-height: 1.38;
+    }
+
+    /* Builder Step Heading Row with Tab-Stop Aligned Tick Box */
+    .builder-step-head {
+      display: grid;
+      grid-template-columns: 1.3rem 1fr;
+      column-gap: 8px;
+      align-items: center;
+      padding: 3px 6px;
+      margin: 0 -6px 5px -6px;
+      border-radius: 8px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+    .builder-step-head > .tick-box {
+      margin-top: 0;
+    }
+    .builder-step-head:hover {
+      background: rgba(42, 143, 173, 0.08);
+    }
+    .builder-step-head.is-ticked {
+      background: rgba(220, 252, 231, 0.65);
+      border-color: #86efac;
+    }
+
+    
+    /* ================= STUDENT ATTENTION COLOUR-CODED FORMULA & QUOTE BOXES ================= */
+    .f-care {
+      background: #ffe4e6 !important;
+      color: #be123c !important;
+      border: 1.5px solid #fda4af;
+      padding: 1px 8px;
+      border-radius: 7px;
+      font-weight: 800;
+      display: inline-block;
+      line-height: 1.3;
+    }
+    .f-way {
+      background: #e0f2fe !important;
+      color: #0369a1 !important;
+      border: 1.5px solid #7dd3fc;
+      padding: 1px 8px;
+      border-radius: 7px;
+      font-weight: 800;
+      display: inline-block;
+      line-height: 1.3;
+    }
+    .f-reason {
+      background: #f3e8ff !important;
+      color: #6d28d9 !important;
+      border: 1.5px solid #c4b5fd;
+      padding: 1px 8px;
+      border-radius: 7px;
+      font-weight: 800;
+      display: inline-block;
+      line-height: 1.3;
+    }
+    .f-sug {
+      background: #dcfce7 !important;
+      color: #15803d !important;
+      border: 1.5px solid #86efac;
+      padding: 1px 8px;
+      border-radius: 7px;
+      font-weight: 800;
+      display: inline-block;
+      line-height: 1.3;
+    }
+    .formula-spotlight-box {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 2px solid #f59e0b;
+      border-radius: 10px;
+      padding: 6px 8px;
+      margin-top: 6px !important;
+      box-shadow: 0 3px 10px rgba(245, 158, 11, 0.14);
+      white-space: nowrap;
+      font-size: 0.92em;
+    }
+    .formula-spotlight-box .f-care,
+    .formula-spotlight-box .f-way,
+    .formula-spotlight-box .f-reason,
+    .formula-spotlight-box .f-sug {
+      padding: 1px 6px;
+    }
+
+    .quote-box {
+      background: linear-gradient(135deg, #fffbeb 0%, #fde68a 100%) !important;
+      border: 2.5px solid #d97706 !important;
+      border-left: 7px solid #b45309 !important;
+      border-radius: 12px !important;
+      box-shadow: 0 6px 16px rgba(217, 119, 6, 0.18);
+    }
+    #careChips .sentence-chip.selected {
+      background: #e11d48;
+      border-color: #be123c;
+      color: #ffffff;
+    }
+    #reasonChips .sentence-chip.selected {
+      background: #0284c7;
+      border-color: #0369a1;
+      color: #ffffff;
+    }
+    #actionChips .sentence-chip.selected {
+      background: #16a34a;
+      border-color: #15803d;
+      color: #ffffff;
+    }
+
+    /* ================= PEN & HIGHLIGHTER SYSTEM ================= */
+    .page-view {
+      position: relative;
+    }
+    .ink-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 35;
+    }
+    body.anno-drawing-mode .page-view.active .ink-canvas {
+      pointer-events: auto;
+      touch-action: none;
+    }
+    body.anno-mode-pen .page-view.active .ink-canvas {
+      cursor: crosshair;
+    }
+    body.anno-mode-highlighter .page-view.active .ink-canvas {
+      cursor: crosshair;
+    }
+    body.anno-mode-eraser .page-view.active .ink-canvas {
+      cursor: cell;
+    }
+    body.anno-mode-texthl .page-view.active {
+      cursor: text;
+    }
+
+    /* Text-Click Highlight Styling (Zero Layout Shift) */
+    .hl-user-mark {
+      background-color: rgba(250, 204, 21, 0.55) !important;
+      border-radius: 4px;
+      box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.55) !important;
+      transition: background-color 0.12s ease;
+    }
+    .hl-user-mark[data-hl-color="green"] {
+      background-color: rgba(74, 222, 128, 0.48) !important;
+      box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.48) !important;
+    }
+    .hl-user-mark[data-hl-color="red"] {
+      background-color: rgba(251, 113, 133, 0.38) !important;
+      box-shadow: 0 0 0 2px rgba(251, 113, 133, 0.38) !important;
+    }
+    .hl-user-mark[data-hl-color="blue"] {
+      background-color: rgba(56, 189, 248, 0.38) !important;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.38) !important;
+    }
+    .subpoint-text.hl-user-mark,
+    .emoji-tab-content.hl-user-mark,
+    .hang-text.hl-user-mark,
+    h1.hl-user-mark,
+    h2.hl-user-mark,
+    h3.hl-user-mark {
+      width: fit-content;
+    }
+
+    /* Floating Draggable Palette */
+    .floating-palette {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 120;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--teal);
+      border-radius: 16px;
+      box-shadow: 0 10px 28px rgba(18, 58, 77, 0.18);
+      padding: 10px 12px;
+      width: 278px;
+      user-select: none;
+      font-size: 14px;
+    }
+    .floating-palette.minimized {
+      display: none;
+    }
+    .fp-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 7px;
+      margin-bottom: 8px;
+      border-bottom: 1.5px solid var(--border);
+      cursor: grab;
+      touch-action: none;
+    }
+    .fp-header:active {
+      cursor: grabbing;
+    }
+    .fp-title {
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .fp-min-btn {
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .fp-min-btn:hover {
+      background: var(--teal-soft);
+      border-color: var(--teal);
+    }
+    .fp-tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 5px;
+      margin-bottom: 8px;
+    }
+    .fp-tool-btn {
+      border: 1.5px solid var(--border);
+      background: #ffffff;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 12px;
+      padding: 6px 4px;
+      border-radius: 9px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      line-height: 1.15;
+      transition: all 0.12s ease;
+    }
+    .fp-tool-btn:hover {
+      border-color: var(--teal);
+      background: var(--teal-soft);
+    }
+    .fp-tool-btn.active {
+      background: var(--teal);
+      color: #ffffff;
+      border-color: var(--teal);
+      box-shadow: 0 2px 8px rgba(42, 143, 173, 0.28);
+    }
+    .fp-colors-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 8px;
+      padding: 4px 6px;
+      background: #f8fafc;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .fp-color-label {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+    .fp-swatches {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .fp-swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 1.5px #cbd5e1;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    .fp-swatch.active {
+      transform: scale(1.16);
+      box-shadow: 0 0 0 2.5px var(--ink);
+    }
+    .fp-actions-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 5px;
+    }
+    .fp-act-btn {
+      border: 1.5px solid var(--border);
+      background: #ffffff;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 5px 4px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      white-space: nowrap;
+      
+    }
+    .fp-act-btn:hover {
+      background: var(--teal-soft);
+      border-color: var(--teal);
+    }
+    .fp-launcher-pill {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 120;
+      border: 2px solid var(--teal);
+      background: rgba(255, 255, 255, 0.96);
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(18, 58, 77, 0.16);
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .fp-launcher-pill.visible {
+      display: inline-flex;
+    }
+
   </style>
 </head>
 <body>
@@ -612,6 +1112,7 @@
   <main class="container">
     <!-- ================= PAGE 0: OBJECTIVES ================= -->
     <section class="page-view active" id="page-objectives">
+      <canvas class="ink-canvas" id="ink-canvas-objectives" data-ink-tab="objectives"></canvas>
       <div class="card hero-grid">
         <div class="anime-frame">
           <img src="data:image/webp;base64,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" alt="S3 CES Classroom Objectives" />
@@ -668,9 +1169,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="sub-hang-row" style="margin-top: 5px;">
-                  <span class="emoji-tab-prefix">•</span>
-                  <div class="emoji-tab-content"><strong>[ care ] + [ way to cope ] + [ suggestion ]</strong></div>
+                <div class="formula-spotlight-box">
+                  <span class="f-care">[ care ]</span> <strong>+</strong> <span class="f-way">[ way to cope ]</span> <strong>+</strong> <span class="f-reason">[ reason ]</span> <strong>+</strong> <span class="f-sug">[ suggestion ]</span>
                 </div>
               </div>
             </div>
@@ -706,6 +1206,7 @@
 
     <!-- ================= PAGE 1: PRE-TASK ================= -->
     <section class="page-view" id="page-pretask">
+      <canvas class="ink-canvas" id="ink-canvas-pretask" data-ink-tab="pretask"></canvas>
       <div class="step-banner">
         <div>
           <span class="tag-pill" style="margin-bottom:2px;">1. Pre-Task · Worksheet Part 1</span>
@@ -718,67 +1219,73 @@
       <div class="card grid-2">
         <div style="background: var(--bg); padding: 14px; border-radius: 12px; border: 1px solid var(--border);">
           <div class="section-head-toggle" data-group-toggle="kw-group">
-            <h3 style="margin:0;">💭 Key Words (Normal in Puberty)</h3>
+            <div class="section-head-left">
+              <span class="tick-box" data-tick-role="section" data-target-group="kw-group" title="Tick or untick whole section"></span>
+              <h3 style="margin:0;">💭 Key Words (Normal in Puberty)</h3>
+            </div>
             <span class="toggle-hint-pill">👆 Toggle All</span>
           </div>
           <div class="obj-list" id="kw-group" style="margin-top:8px;">
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap"><span>💭 Sexual Fantasy</span></div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="head-prefix">💭</span><span>Sexual Fantasy</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
-              <div class="toggle-body"><div class="hang-row"><span class="hang-icon">🧠💭</span><div class="hang-text"><strong>Picture in mind</strong> <span class="nowrap">(Normal in puberty)</span></div></div></div>
+              <div class="toggle-body"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">🧠💭</span><div class="subpoint-text"><strong>Picture in mind</strong> <span class="nowrap">(Normal in puberty)</span></div></div></div>
             </div>
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap"><span>⚡ Sexual Impulse</span></div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="head-prefix">⚡</span><span>Sexual Impulse</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
-              <div class="toggle-body"><div class="hang-row"><span class="hang-icon">💓🔥</span><div class="hang-text"><strong>Strong body desire</strong> <span class="nowrap">in a risky situation</span></div></div></div>
+              <div class="toggle-body"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">💓🔥</span><div class="subpoint-text"><strong>Strong body desire</strong> <span class="nowrap">in a risky situation</span></div></div></div>
             </div>
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap"><span>💪 How to Handle Both?</span></div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="head-prefix">💪</span><span>How to Handle Both?</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
-              <div class="toggle-body" style="color:var(--teal);"><div class="hang-row"><span class="hang-icon">🛑💪</span><div class="hang-text"><strong>Control desires</strong> <span class="nowrap">with Self-Discipline &amp; Respect!</span></div></div></div>
+              <div class="toggle-body" style="color:var(--teal);"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">🛑💪</span><div class="subpoint-text"><strong>Control desires</strong> <span class="nowrap">with Self-Discipline &amp; Respect!</span></div></div></div>
             </div>
           </div>
         </div>
 
         <div style="background: var(--bg); padding: 14px; border-radius: 12px; border: 1px solid var(--border);">
           <div class="section-head-toggle" data-group-toggle="ways4-group">
-            <h3 style="margin:0;">🛡️ 4 Ways to Cope &amp; 4 Reasons <span style="color:var(--teal);">[ reason ]</span></h3>
+            <div class="section-head-left">
+              <span class="tick-box" data-tick-role="section" data-target-group="ways4-group" title="Tick or untick whole section"></span>
+              <h3 style="margin:0;">🛡️ 4 Ways to Cope &amp; 4 Reasons</h3>
+            </div>
             <span class="toggle-hint-pill">👆 Toggle All</span>
           </div>
           <div class="obj-list" id="ways4-group" style="margin-top:8px;">
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap"><span>A. Set limits of intimacy</span></div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="head-prefix">A.</span><span>Set limits of intimacy</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
-              <div class="toggle-body"><div class="hang-row"><span class="hang-icon">💖🛑</span><div class="hang-text"><strong>True love respects limits</strong> <span class="nowrap">(Under 16 = illegal)</span></div></div></div>
+              <div class="toggle-body"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">💖🛑</span><div class="subpoint-text"><strong>True love respects limits</strong> <span class="nowrap">(Under 16 = illegal)</span></div></div></div>
             </div>
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap"><span>B. Stay away from pornography</span></div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="head-prefix">B.</span><span>Stay away from pornography</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
-              <div class="toggle-body"><div class="hang-row"><span class="hang-icon">📵❌</span><div class="hang-text"><strong>18+ media gives wrong ideas</strong> <span class="nowrap">about love</span></div></div></div>
+              <div class="toggle-body"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">📵❌</span><div class="subpoint-text"><strong>18+ media gives wrong ideas</strong> <span class="nowrap">about love</span></div></div></div>
             </div>
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap"><span>C. Avoid quiet places</span></div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="head-prefix">C.</span><span>Avoid quiet places</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
-              <div class="toggle-body"><div class="hang-row"><span class="hang-icon">🏠⚠️</span><div class="hang-text"><strong>Being alone in a quiet place is unsafe</strong></div></div></div>
+              <div class="toggle-body"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">🏠⚠️</span><div class="subpoint-text"><strong>Being alone in a quiet place is unsafe</strong></div></div></div>
             </div>
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap"><span>D. Join healthy activities</span></div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="head-prefix">D.</span><span>Join healthy activities</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
-              <div class="toggle-body"><div class="hang-row"><span class="hang-icon">🏀⚡</span><div class="hang-text"><strong>Sports &amp; hobbies use our energy</strong> well</div></div></div>
+              <div class="toggle-body"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">🏀⚡</span><div class="subpoint-text"><strong>Sports &amp; hobbies use our energy</strong> well</div></div></div>
             </div>
           </div>
         </div>
@@ -849,7 +1356,19 @@
           </div>
           <div class="match-feedback" id="fb-4"></div>
         </div>
+      </div>
 
+      <!-- Collapsible Questions 5 - 8 -->
+      <div class="card" style="padding: 12px 14px; margin-top: 4px;">
+        <div class="toggle-card" data-toggle-card>
+          <div class="toggle-head">
+            <div class="toggle-title-wrap">
+              <div class="toggle-title-inner"><span>➕ Questions 5 – 8 · More Risky Situations</span></div>
+            </div>
+            <span class="toggle-chip">Reveal ▾</span>
+          </div>
+          <div class="toggle-body">
+            <div class="grid-2" style="margin-top: 10px;">
         <!-- Card 5 -->
         <div class="card" data-q="5" data-ans="A">
           <div class="anime-frame" style="margin-bottom: 10px;">
@@ -913,15 +1432,37 @@
           </div>
           <div class="match-feedback" id="fb-8"></div>
         </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div style="text-align: right; margin-top: 4px;">
+      <!-- Moved from While-Task: 4 Ways to Cope (Write These on Worksheet Part 2) -->
+      <div class="card" style="padding: 12px 14px; margin-top: 4px;">
+        <div class="toggle-card" data-toggle-card>
+          <div class="toggle-head">
+            <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span>🛡️ 4 Ways to Cope (Write These on Worksheet Part 2)</span></div></div>
+            <span class="toggle-chip">Reveal ▾</span>
+          </div>
+          <div class="toggle-body">
+            <div class="grid-2" style="gap:10px; margin-top:6px;">
+              <div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">🛑</span><div class="subpoint-text"><strong>Set limits of intimacy</strong> (e.g. respect my limits)</div></div>
+              <div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">📵</span><div class="subpoint-text"><strong>Stay away from pornography</strong> (e.g. turn off 18+ video)</div></div>
+              <div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">🚪</span><div class="subpoint-text"><strong>Avoid quiet places</strong> (e.g. go to a public café / library)</div></div>
+              <div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">🏀</span><div class="subpoint-text"><strong>Join healthy activities</strong> (e.g. play basketball / sports / cycle)</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: right; margin-top: 4px; margin-bottom: 55vh;">
         <button type="button" class="primary-cta" data-goto="whiletask">Next: 2. While-Task (CES SoftSpeak) ➔</button>
       </div>
     </section>
 
     <!-- ================= PAGE 2: WHILE-TASK ================= -->
     <section class="page-view" id="page-whiletask">
+      <canvas class="ink-canvas" id="ink-canvas-whiletask" data-ink-tab="whiletask"></canvas>
       <div class="step-banner">
         <div>
           <span class="tag-pill" style="margin-bottom:2px;">2. While-Task · Worksheet Part 2 &amp; Part 3</span>
@@ -1005,58 +1546,58 @@
       <!-- Simple 3-Step Rules + Keep-On-Screen 2 Sentence Patterns & 4 Ways Reference -->
       <div class="card">
         <div class="section-head-toggle" data-group-toggle="steps-group">
-          <h3 style="margin:0;">📋 Pair Steps (Worksheet Part 2 &amp; Part 3)</h3>
-          <span class="toggle-hint-pill">👆 Toggle Steps</span>
-        </div>
+            <div class="section-head-left">
+              <span class="tick-box" data-tick-role="section" data-target-group="steps-group" title="Tick or untick whole section"></span>
+              <h3 style="margin:0;">📋 Pair Steps (Worksheet Part 2 &amp; Part 3)</h3>
+            </div>
+            <span class="toggle-hint-pill">👆 Toggle Steps</span>
+          </div>
         <div class="grid-3" id="steps-group" style="margin-top:6px;">
           <div class="toggle-card" data-toggle-card>
             <div class="toggle-head">
-              <div class="toggle-title-wrap">
-                <div class="obj-num">1</div>
-                <span>Pick Leon or Chloe</span>
-              </div>
+              <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><div class="obj-num">1</div>
+                <span>Pick Leon or Chloe</span></div></div>
               <span class="toggle-chip">Reveal ▾</span>
             </div>
-            <div class="toggle-body"><div class="hang-row"><span class="hang-icon">☑️</span><div class="hang-text">Tick <strong>Scenario 2 (Leon)</strong><br/>or <strong>Scenario 3 (Chloe)</strong></div></div></div>
+            <div class="toggle-body"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">☑️</span><div class="subpoint-text">Tick <strong>Scenario 2 (Leon)</strong><br/>or <strong>Scenario 3 (Chloe)</strong></div></div></div>
           </div>
 
           <div class="toggle-card" data-toggle-card>
             <div class="toggle-head">
-              <div class="toggle-title-wrap">
-                <div class="obj-num">2</div>
-                <span>Refuse Politely (3 Tries)</span>
-              </div>
+              <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><div class="obj-num">2</div>
+                <span>Refuse Politely (3 Tries)</span></div></div>
               <span class="toggle-chip">Reveal ▾</span>
             </div>
-            <div class="toggle-body"><div class="hang-row"><span class="hang-icon">💬</span><div class="hang-text">Use <strong>[ care ] + [ way to cope ]</strong><br/><strong>+ [ suggestion ]</strong> (Be polite!)</div></div></div>
+            <div class="toggle-body"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">💬</span><div class="subpoint-text">Use <span class="f-care">[ care ]</span> + <span class="f-way">[ way to cope ]</span><br/>+ <span class="f-reason">[ reason ]</span> + <span class="f-sug">[ suggestion ]</span> (Be polite!)</div></div></div>
           </div>
 
           <div class="toggle-card" data-toggle-card>
             <div class="toggle-head">
-              <div class="toggle-title-wrap">
-                <div class="obj-num">3</div>
-                <span>Get AI Grade (S–D)</span>
-              </div>
+              <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><div class="obj-num">3</div>
+                <span>Get AI Grade (S–D)</span></div></div>
               <span class="toggle-chip">Reveal ▾</span>
             </div>
-            <div class="toggle-body"><div class="hang-row"><span class="hang-icon">🏆</span><div class="hang-text">Circle your <strong>Grade (S–D)</strong><br/>&amp; copy AI Coach Comment</div></div></div>
+            <div class="toggle-body"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">🏆</span><div class="subpoint-text">Circle your <strong>Grade (S–D)</strong><br/>&amp; copy AI Coach Comment</div></div></div>
           </div>
         </div>
 
         <div class="cheat-bar">
           <div class="section-head-toggle" data-group-toggle="while-patterns-group">
-            <div style="font-weight:800; color:var(--ink);">🗣️ Teacher Demo &amp; Pair Guide — How to Reply Politely (Worksheet Part 2):</div>
+            <div class="section-head-left">
+              <span class="tick-box" data-tick-role="section" data-target-group="while-patterns-group" title="Tick or untick whole section"></span>
+              <div style="font-weight:800; color:var(--ink);">🗣️ Teacher Demo &amp; Pair Guide — How to Reply Politely (Worksheet Part 2):</div>
+            </div>
             <span class="toggle-hint-pill">👆 Click to Reveal / Hide</span>
           </div>
           <div class="grid-2" id="while-patterns-group" style="margin-top:8px;">
             <div class="toggle-card" data-toggle-card style="grid-column: 1 / -1;">
               <div class="toggle-head">
-                <div class="toggle-title-wrap"><span style="font-size:1.12rem;">✍️ How Should We Say It? Tap to Build: <span style="color:var(--teal); font-size:1.26rem; font-weight:900;">[ care ] + [ way to cope ] + [ suggestion ]</span></span></div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span style="font-size:1.08rem;">✍️ How Should We Say It? Tap to Build: <span class="f-care">[ care ]</span> + <span class="f-way">[ way to cope ]</span> + <span class="f-reason">[ reason ]</span> + <span class="f-sug">[ suggestion ]</span></span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
               <div class="toggle-body">
                 <div style="margin-bottom:8px;">
-                  <strong style="font-size:0.88rem; color:var(--ink);">1. <span style="color:var(--teal);">[ care ]</span>, ... <span style="font-weight:600; color:var(--muted);">(Be polite &amp; warm — don't scold rudely!)</span></strong>
+                  <div class="builder-step-head" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><strong style="font-size:0.88rem; color:var(--ink);">1. <span class="f-care">[ care ]</span>, ... <span style="font-weight:600; color:var(--muted);">(Be polite &amp; warm — don't scold rudely!)</span></strong></div>
                   <div class="choice-row" id="careChips">
                     <button type="button" class="sentence-chip selected" data-care="I care about you">I care about you</button>
                     <button type="button" class="sentence-chip" data-care="I like being with you">I like being with you</button>
@@ -1064,7 +1605,7 @@
                   </div>
                 </div>
                 <div style="margin-bottom:8px;">
-                  <strong style="font-size:0.88rem; color:var(--ink);">2. ...but we should <span style="color:var(--teal);">[ way to cope ]</span> because <span style="color:var(--teal);">[ reason ]</span>.</strong>
+                  <div class="builder-step-head" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><strong style="font-size:0.88rem; color:var(--ink);">2. ...but we should <span class="f-way">[ way to cope ]</span> because <span class="f-reason">[ reason ]</span>.</strong></div>
                   <div class="choice-row" id="reasonChips">
                     <button type="button" class="sentence-chip selected" data-way="avoid quiet places" data-reason="being alone in a quiet place is unsafe">C. avoid quiet places + being alone in a quiet place is unsafe</button>
                     <button type="button" class="sentence-chip" data-way="set limits of intimacy" data-reason="true love respects limits">A. set limits of intimacy + true love respects limits</button>
@@ -1073,7 +1614,7 @@
                   </div>
                 </div>
                 <div style="margin-bottom:10px;">
-                  <strong style="font-size:0.88rem; color:var(--ink);">3. Let's <span style="color:var(--teal);">[ suggestion ]</span> instead! <span style="font-weight:600; color:var(--muted);">(Distract with a safe place or sport!)</span></strong>
+                  <div class="builder-step-head" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><strong style="font-size:0.88rem; color:var(--ink);">3. Let's <span class="f-sug">[ suggestion ]</span> instead! <span style="font-weight:600; color:var(--muted);">(Distract with a safe place or sport!)</span></strong></div>
                   <div class="choice-row" id="actionChips">
                     <button type="button" class="sentence-chip selected" data-action="go to a bright public café">go to a bright public café</button>
                     <button type="button" class="sentence-chip" data-action="go bowling and play sports together">go bowling and play sports together</button>
@@ -1082,37 +1623,25 @@
                   </div>
                 </div>
                 <div class="quote-box" style="font-size:1.32rem; line-height:1.45; padding:14px 16px; color:var(--ink);">
-                  <span id="builtExitSentence" style="color:var(--ink);">"<strong style="color:var(--teal);">I care about you</strong>, but we should <strong style="color:var(--teal);">avoid quiet places</strong> because <strong style="color:var(--teal);">being alone in a quiet place is unsafe</strong>. Let's <strong style="color:var(--teal);">go to a bright public café</strong> instead!"</span>
+                  <span id="builtExitSentence" style="color:var(--ink);">"<strong class="f-care">I care about you</strong>, but we should <strong class="f-way">avoid quiet places</strong> because <strong class="f-reason">being alone in a quiet place is unsafe</strong>. Let's <strong class="f-sug">go to a bright public café</strong> instead!"</span>
                   <button type="button" class="speak-mini" id="speakExitBtn">🔊</button>
                 </div>
               </div>
             </div>
 
-            <div class="toggle-card" data-toggle-card style="grid-column: 1 / -1;">
-              <div class="toggle-head">
-                <div class="toggle-title-wrap"><span>🛡️ 4 Ways to Cope (Write These on Worksheet Part 2)</span></div>
-                <span class="toggle-chip">Reveal ▾</span>
-              </div>
-              <div class="toggle-body">
-                <div class="grid-2" style="gap:10px;">
-                  <div class="sub-hang-row"><span class="emoji-tab-prefix">• 🛑</span><div class="emoji-tab-content"><strong>Set limits of intimacy</strong> (e.g. respect my limits)</div></div>
-                  <div class="sub-hang-row"><span class="emoji-tab-prefix">• 📵</span><div class="emoji-tab-content"><strong>Stay away from pornography</strong> (e.g. turn off 18+ video)</div></div>
-                  <div class="sub-hang-row"><span class="emoji-tab-prefix">• 🚪</span><div class="emoji-tab-content"><strong>Avoid quiet places</strong> (e.g. go to a public café / library)</div></div>
-                  <div class="sub-hang-row"><span class="emoji-tab-prefix">• 🏀</span><div class="emoji-tab-content"><strong>Join healthy activities</strong> (e.g. play basketball / sports / cycle)</div></div>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
 
-      <div style="text-align: right;">
+      <div style="text-align: right; margin-bottom: 55vh;">
         <button type="button" class="primary-cta" data-goto="posttask">Next: 3. Post-Task ➔</button>
       </div>
     </section>
 
     <!-- ================= PAGE 3: POST-TASK ================= -->
     <section class="page-view" id="page-posttask">
+      <canvas class="ink-canvas" id="ink-canvas-posttask" data-ink-tab="posttask"></canvas>
       <div class="step-banner">
         <div>
           <span class="tag-pill" style="margin-bottom:2px;">3. Post-Task · Worksheet Part 4</span>
@@ -1129,56 +1658,47 @@
         <div>
           <span class="tag-pill" style="background:var(--red-soft); color:var(--red);">Worksheet Part 4 Q1 · Bad Ending (Grade D)</span>
           <div class="section-head-toggle" data-group-toggle="conseq-group">
-            <h2 style="margin:0;">💔 4 Results of Not Controlling Impulses</h2>
+            <div class="section-head-left">
+              <span class="tick-box" data-tick-role="section" data-target-group="conseq-group" title="Tick or untick whole section"></span>
+              <h2 style="margin:0;">💔 4 Results of Not Controlling Impulses</h2>
+            </div>
             <span class="toggle-hint-pill">👆 Toggle All</span>
           </div>
           <div class="grid-2" id="conseq-group" style="margin-top:10px; gap:12px;">
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap"><span class="nowrap" style="font-size:0.96rem;">1. Emotional Distress 😔</span></div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="nowrap" style="font-size:0.96rem;">1. Emotional Distress 😔</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
               <div class="toggle-body" style="font-size:0.98rem; line-height:1.42;">
-                <div class="hang-row">
-                  <span class="hang-icon">😭💔</span>
-                  <div class="hang-text"><div><strong>Very sad, scared &amp; guilty</strong></div><div class="sub-hang-row"><span class="emoji-tab-prefix">•</span><div class="emoji-tab-content">Broken trust</div></div></div>
-                </div>
+                <div class="subpoint-list"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">😭💔</span><div class="subpoint-text"><strong>Very sad, scared &amp; guilty</strong></div></div><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">•</span><div class="subpoint-text">Broken trust</div></div></div>
               </div>
             </div>
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap"><span class="nowrap" style="font-size:0.96rem;">2. Unplanned Pregnancy 🍼</span></div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="nowrap" style="font-size:0.96rem;">2. Unplanned Pregnancy 🍼</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
               <div class="toggle-body" style="font-size:0.98rem; line-height:1.42;">
-                <div class="hang-row">
-                  <span class="hang-icon">🤰🍼</span>
-                  <div class="hang-text"><div><strong>Having a baby too young</strong></div><div class="sub-hang-row"><span class="emoji-tab-prefix">•</span><div class="emoji-tab-content">Not ready!</div></div></div>
-                </div>
+                <div class="subpoint-list"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">🤰🍼</span><div class="subpoint-text"><strong>Having a baby too young</strong></div></div><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">•</span><div class="subpoint-text">Not ready!</div></div></div>
               </div>
             </div>
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap"><span class="nowrap" style="font-size:0.96rem;">3. STD Infections 🏥</span></div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="nowrap" style="font-size:0.96rem;">3. STD Infections 🏥</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
               <div class="toggle-body" style="font-size:0.98rem; line-height:1.42;">
-                <div class="hang-row">
-                  <span class="hang-icon">🏥🦠</span>
-                  <div class="hang-text"><div><strong>Serious body sickness</strong></div><div class="sub-hang-row"><span class="emoji-tab-prefix">•</span><div class="emoji-tab-content">Sexually transmitted (STDs)</div></div></div>
-                </div>
+                <div class="subpoint-list"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">🏥🦠</span><div class="subpoint-text"><strong>Serious body sickness</strong></div></div><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">•</span><div class="subpoint-text">Sexually transmitted (STDs)</div></div></div>
               </div>
             </div>
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap"><span class="nowrap" style="font-size:0.96rem;">4. Family &amp; Legal Trouble ⚖️</span></div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="nowrap" style="font-size:0.96rem;">4. Family &amp; Legal Trouble ⚖️</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
               <div class="toggle-body" style="font-size:0.98rem; line-height:1.42;">
-                <div class="hang-row">
-                  <span class="hang-icon">👨‍👩‍👧👮</span>
-                  <div class="hang-text"><div><strong>Parents sad &amp; worried</strong></div><div class="sub-hang-row"><span class="emoji-tab-prefix">•</span><div class="emoji-tab-content"><strong>Under 16 = Illegal!</strong></div></div></div>
-                </div>
+                <div class="subpoint-list"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">👨‍👩‍👧👮</span><div class="subpoint-text"><strong>Parents sad &amp; worried</strong></div></div><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">•</span><div class="subpoint-text"><strong>Under 16 = Illegal!</strong></div></div></div>
               </div>
             </div>
           </div>
@@ -1189,60 +1709,47 @@
       <div class="card">
         <span class="tag-pill">Worksheet Part 4 Q2 · Values Education</span>
         <div class="section-head-toggle" data-group-toggle="values-group">
-          <h2 style="margin:0;">🌟 4 Key Values Practised Today</h2>
-          <span class="toggle-hint-pill">👆 Toggle All</span>
-        </div>
+            <div class="section-head-left">
+              <span class="tick-box" data-tick-role="section" data-target-group="values-group" title="Tick or untick whole section"></span>
+              <h2 style="margin:0;">🌟 4 Key Values Practised Today</h2>
+            </div>
+            <span class="toggle-hint-pill">👆 Toggle All</span>
+          </div>
         <div class="grid-4" id="values-group" style="margin-top:10px; gap:12px;">
           <div class="toggle-card" data-toggle-card style="padding:12px;">
-            <div><span class="value-pill">Value 1</span></div>
-            <div class="toggle-head">
-              <div class="toggle-title-wrap"><span class="nowrap" style="font-size:0.95rem;">💪 Self-Discipline</span></div>
-              <span class="toggle-chip">Reveal ▾</span>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;"><span class="value-pill" style="margin-bottom:0;">Value 1</span><span class="toggle-chip">Reveal ▾</span></div>
+            <div class="toggle-head" style="min-height:24px;">
+              <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="head-prefix">💪</span><span class="nowrap" style="font-size:0.95rem;">Self-Discipline</span></div></div>
             </div>
             <div class="toggle-body" style="font-size:0.96rem; line-height:1.42;">
-              <div class="hang-row">
-                <span class="hang-icon">🛑💪</span>
-                <div class="hang-text"><div><strong>Control strong desires</strong></div><div class="sub-hang-row"><span class="emoji-tab-prefix">•</span><div class="emoji-tab-content">Perseverance</div></div></div>
-              </div>
+              <div class="subpoint-list"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">🛑💪</span><div class="subpoint-text"><strong>Control strong desires</strong></div></div><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">•</span><div class="subpoint-text">Perseverance</div></div></div>
             </div>
           </div>
           <div class="toggle-card" data-toggle-card style="padding:12px;">
-            <div><span class="value-pill">Value 2</span></div>
-            <div class="toggle-head">
-              <div class="toggle-title-wrap"><span class="nowrap" style="font-size:0.95rem;">🤝 Respect for Others</span></div>
-              <span class="toggle-chip">Reveal ▾</span>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;"><span class="value-pill" style="margin-bottom:0;">Value 2</span><span class="toggle-chip">Reveal ▾</span></div>
+            <div class="toggle-head" style="min-height:24px;">
+              <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="head-prefix">🤝</span><span class="nowrap" style="font-size:0.95rem;">Respect for Others</span></div></div>
             </div>
             <div class="toggle-body" style="font-size:0.96rem; line-height:1.42;">
-              <div class="hang-row">
-                <span class="hang-icon">💖🤝</span>
-                <div class="hang-text"><div><strong>Respect limits</strong></div><div class="sub-hang-row"><span class="emoji-tab-prefix">•</span><div class="emoji-tab-content">Speak kindly with care</div></div></div>
-              </div>
+              <div class="subpoint-list"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">💖🤝</span><div class="subpoint-text"><strong>Respect limits</strong></div></div><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">•</span><div class="subpoint-text">Speak kindly with care</div></div></div>
             </div>
           </div>
           <div class="toggle-card" data-toggle-card style="padding:12px;">
-            <div><span class="value-pill">Value 3</span></div>
-            <div class="toggle-head">
-              <div class="toggle-title-wrap"><span class="nowrap" style="font-size:0.95rem;">🛡️ Responsibility</span></div>
-              <span class="toggle-chip">Reveal ▾</span>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;"><span class="value-pill" style="margin-bottom:0;">Value 3</span><span class="toggle-chip">Reveal ▾</span></div>
+            <div class="toggle-head" style="min-height:24px;">
+              <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="head-prefix">🛡️</span><span class="nowrap" style="font-size:0.95rem;">Responsibility</span></div></div>
             </div>
             <div class="toggle-body" style="font-size:0.96rem; line-height:1.42;">
-              <div class="hang-row">
-                <span class="hang-icon">🏥👨‍👩‍👧</span>
-                <div class="hang-text"><div><strong>Protect health &amp; future</strong></div><div class="sub-hang-row"><span class="emoji-tab-prefix">•</span><div class="emoji-tab-content">Care for our family</div></div></div>
-              </div>
+              <div class="subpoint-list"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">🏥👨‍👩‍👧</span><div class="subpoint-text"><strong>Protect health &amp; future</strong></div></div><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">•</span><div class="subpoint-text">Care for our family</div></div></div>
             </div>
           </div>
           <div class="toggle-card" data-toggle-card style="padding:12px;">
-            <div><span class="value-pill">Value 4</span></div>
-            <div class="toggle-head">
-              <div class="toggle-title-wrap"><span class="nowrap" style="font-size:0.95rem;">⚖️ Law-abidingness</span></div>
-              <span class="toggle-chip">Reveal ▾</span>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;"><span class="value-pill" style="margin-bottom:0;">Value 4</span><span class="toggle-chip">Reveal ▾</span></div>
+            <div class="toggle-head" style="min-height:24px;">
+              <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><span class="head-prefix">⚖️</span><span class="nowrap" style="font-size:0.95rem;">Law-abidingness</span></div></div>
             </div>
             <div class="toggle-body" style="font-size:0.96rem; line-height:1.42;">
-              <div class="hang-row">
-                <span class="hang-icon">👮⚖️</span>
-                <div class="hang-text"><div><strong>Obey HK law (Age 16)</strong></div><div class="sub-hang-row"><span class="emoji-tab-prefix">•</span><div class="emoji-tab-content">Act with propriety</div></div></div>
-              </div>
+              <div class="subpoint-list"><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">👮⚖️</span><div class="subpoint-text"><strong>Obey HK law (Age 16)</strong></div></div><div class="subpoint-row" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><span class="subpoint-prefix">•</span><div class="subpoint-text">Act with propriety</div></div></div>
             </div>
           </div>
         </div>
@@ -1250,63 +1757,59 @@
 
 
 
-      <div style="text-align: right;">
+      <div style="text-align: right; margin-bottom: 55vh;">
         <button type="button" class="primary-cta" data-goto="conclusion">Next: 🏁 Conclusion ➔</button>
       </div>
     </section>
 
     <!-- ================= PAGE 4: CONCLUSION ================= -->
     <section class="page-view" id="page-conclusion">
+      <canvas class="ink-canvas" id="ink-canvas-conclusion" data-ink-tab="conclusion"></canvas>
       <div class="card hero-grid">
         <div>
           <span class="tag-pill">Conclusion · Summary</span>
           <div class="section-head-toggle" data-group-toggle="conc-group">
-            <h1 style="margin:0;">4 Ways &amp; 4 Values</h1>
+            <div class="section-head-left">
+              <span class="tick-box" data-tick-role="section" data-target-group="conc-group" title="Tick or untick whole section"></span>
+              <h1 style="margin:0;">4 Ways &amp; 4 Values</h1>
+            </div>
             <span class="toggle-hint-pill">👆 Click headwords to reveal</span>
           </div>
           <div class="obj-list" id="conc-group">
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap">
-                  <div class="obj-num">A</div>
-                  <span>Set Limits of Intimacy</span>
-                </div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><div class="obj-num">A</div>
+                  <span>Set Limits of Intimacy</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
-              <div class="toggle-body">Value: Respect for Others</div>
+              <div class="toggle-body"><div class="subpoint-row no-prefix" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><div class="subpoint-text">Value: Respect for Others</div></div></div>
             </div>
 
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap">
-                  <div class="obj-num">B</div>
-                  <span>Stay Away from Pornography</span>
-                </div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><div class="obj-num">B</div>
+                  <span>Stay Away from Pornography</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
-              <div class="toggle-body">Value: Self-Discipline (Perseverance)</div>
+              <div class="toggle-body"><div class="subpoint-row no-prefix" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><div class="subpoint-text">Value: Self-Discipline (Perseverance)</div></div></div>
             </div>
 
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap">
-                  <div class="obj-num">C</div>
-                  <span>Avoid Quiet Places</span>
-                </div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><div class="obj-num">C</div>
+                  <span>Avoid Quiet Places</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
-              <div class="toggle-body">Value: Responsibility &amp; Law-abidingness</div>
+              <div class="toggle-body"><div class="subpoint-row no-prefix" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><div class="subpoint-text">Value: Responsibility &amp; Law-abidingness</div></div></div>
             </div>
 
             <div class="toggle-card" data-toggle-card>
               <div class="toggle-head">
-                <div class="toggle-title-wrap">
-                  <div class="obj-num">D</div>
-                  <span>Join Healthy Activities</span>
-                </div>
+                <div class="toggle-title-wrap has-tick"><span class="tick-box" data-tick-role="headpoint" title="Tick or untick headpoint"></span><div class="toggle-title-inner"><div class="obj-num">D</div>
+                  <span>Join Healthy Activities</span></div></div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
-              <div class="toggle-body">Sports • Cycling • Volunteering</div>
+              <div class="toggle-body"><div class="subpoint-row no-prefix" data-subpoint><span class="tick-box" data-tick-role="subpoint"></span><div class="subpoint-text">Sports • Cycling • Volunteering</div></div></div>
             </div>
           </div>
           <div style="margin-top: 16px;">
@@ -1330,6 +1833,50 @@
       </div>
     </section>
   </main>
+
+  <!-- ================= FLOATING DRAGGABLE PEN & HIGHLIGHTER PALETTE ================= -->
+  <aside class="floating-palette" id="floatingPenPalette" aria-label="Pen and Highlighter Palette">
+    <div class="fp-header" id="fpDragHandle" title="Drag to move palette">
+      <span class="fp-title">⠿ 🖊️ Pen &amp; Highlighter</span>
+      <button type="button" class="fp-min-btn" id="fpMinimizeBtn" title="Minimize Palette">—</button>
+    </div>
+    <div class="fp-tools-grid">
+      <button type="button" class="fp-tool-btn active" data-anno-mode="cursor" title="Normal Cursor (Click toggles &amp; tick boxes)">
+        <span>👆</span><span>Cursor</span>
+      </button>
+      <button type="button" class="fp-tool-btn" data-anno-mode="pen" title="Freehand Pen (Draw on screen)">
+        <span>🖊️</span><span>Pen</span>
+      </button>
+      <button type="button" class="fp-tool-btn" data-anno-mode="highlighter" title="Highlighter (Drag to draw or tap text to highlight)">
+        <span>🖍️</span><span>Highlight</span>
+      </button>
+      <button type="button" class="fp-tool-btn" data-anno-mode="texthl" title="Text Highlighter (Tap any phrase or select words to highlight)">
+        <span>✨</span><span>Tap Text</span>
+      </button>
+      <button type="button" class="fp-tool-btn" data-anno-mode="eraser" title="Eraser (Click or drag over ink or text highlights to erase)">
+        <span>🧹</span><span>Eraser</span>
+      </button>
+      <button type="button" class="fp-tool-btn" id="fpUndoBtn" title="Undo last mark on this tab">
+        <span>↩️</span><span>Undo</span>
+      </button>
+    </div>
+    <div class="fp-colors-row">
+      <span class="fp-color-label">Colour:</span>
+      <div class="fp-swatches">
+        <button type="button" class="fp-swatch active" data-anno-color="yellow" style="background:#facc15;" title="Yellow / Amber"></button>
+        <button type="button" class="fp-swatch" data-anno-color="red" style="background:#e11d48;" title="Red"></button>
+        <button type="button" class="fp-swatch" data-anno-color="blue" style="background:#0284c7;" title="Blue"></button>
+        <button type="button" class="fp-swatch" data-anno-color="green" style="background:#16a34a;" title="Green"></button>
+      </div>
+    </div>
+    <div class="fp-actions-row">
+      <button type="button" class="fp-act-btn" id="fpClearTabInkBtn" title="Clear all pen &amp; highlighter marks on this tab">🗑️ Clear Ink</button>
+      <button type="button" class="fp-act-btn" id="fpTickAllTabBtn" title="Tick all items on this tab">✅ Tick Tab</button>
+      <button type="button" class="fp-act-btn" id="fpResetTicksTabBtn" title="Reset all ticks on this tab">⬜ Reset</button>
+    </div>
+  </aside>
+  <button type="button" class="fp-launcher-pill" id="floatingPenLauncher" title="Open Pen &amp; Highlighter Palette">🖊️ Pen &amp; HL</button>
+
 
   <script>
     (function () {
@@ -1376,19 +1923,28 @@
         if (chip) chip.textContent = isOpen ? "Hide ▴" : "Reveal ▾";
       }
 
-      // Individual toggle cards: click to reveal, click again to hide (ignore clicks on inner buttons/chips)
+      let currentAnnoMode = "cursor"; // cursor | pen | highlighter | texthl | eraser
+      let currentAnnoColor = "yellow"; // yellow | red | blue | green
+
+      // Individual toggle cards: click to reveal, click again to hide (ignore clicks on inner buttons/chips/ticks/subpoints)
       document.querySelectorAll("[data-toggle-card]").forEach(card => {
         card.addEventListener("click", (e) => {
-          if (e.target.closest("button")) return;
+          const clickedChip = e.target.closest(".toggle-chip");
+          if (currentAnnoMode !== "cursor" && !(currentAnnoMode === "texthl" && clickedChip)) return;
+          if (e.target.closest("button, .tick-box, [data-subpoint], [data-subpoint-group], .card[data-q]")) return;
           const nextState = !card.classList.contains("open");
           setCardOpen(card, nextState);
           playTone(nextState ? 580 : 440, 0.1, "sine");
+          requestAnimationFrame(resizeAllCanvases);
         });
       });
 
       // Group header toggles: click section header to reveal all in group, click again to hide all
       document.querySelectorAll("[data-group-toggle]").forEach(header => {
-        header.addEventListener("click", () => {
+        header.addEventListener("click", (e) => {
+          const clickedHint = e.target.closest(".toggle-hint-pill");
+          if (currentAnnoMode !== "cursor" && !(currentAnnoMode === "texthl" && clickedHint)) return;
+          if (e.target.closest(".tick-box")) return;
           const groupId = header.getAttribute("data-group-toggle");
           const container = document.getElementById(groupId);
           if (!container) return;
@@ -1396,6 +1952,99 @@
           const anyClosed = cards.some(c => !c.classList.contains("open"));
           cards.forEach(c => setCardOpen(c, anyClosed));
           playTone(anyClosed ? 640 : 420, 0.14, "triangle");
+          requestAnimationFrame(resizeAllCanvases);
+        });
+      });
+
+      // ================= HIERARCHICAL CHECK / TICK ENGINE =================
+      function setSubpointRowTicked(row, ticked) {
+        if (!row || row.hasAttribute("data-ignore-tick")) return;
+        row.classList.toggle("is-ticked", ticked);
+        const box = row.querySelector(":scope > .tick-box");
+        if (box) box.classList.toggle("is-ticked", ticked);
+      }
+
+      function syncHeadpointCardFromSubpoints(card) {
+        if (!card) return;
+        const headBox = card.querySelector('.toggle-head .tick-box[data-tick-role="headpoint"]');
+        if (!headBox) return;
+        const subs = Array.from(card.querySelectorAll("[data-subpoint]:not([data-ignore-tick])"));
+        if (subs.length === 0) return;
+        const allTicked = subs.every(r => r.classList.contains("is-ticked"));
+        card.classList.toggle("is-ticked", allTicked);
+        headBox.classList.toggle("is-ticked", allTicked);
+        syncAllSectionHeaders();
+      }
+
+      function setHeadpointCardTicked(card, ticked) {
+        if (!card) return;
+        const headBox = card.querySelector('.toggle-head .tick-box[data-tick-role="headpoint"]');
+        if (!headBox) return;
+        card.classList.toggle("is-ticked", ticked);
+        headBox.classList.toggle("is-ticked", ticked);
+        card.querySelectorAll("[data-subpoint]:not([data-ignore-tick])").forEach(r => {
+          setSubpointRowTicked(r, ticked);
+        });
+        syncAllSectionHeaders();
+      }
+
+      function syncAllSectionHeaders() {
+        document.querySelectorAll("[data-group-toggle]").forEach(header => {
+          const secBox = header.querySelector('.tick-box[data-tick-role="section"]');
+          if (!secBox) return;
+          const groupId = header.getAttribute("data-group-toggle");
+          const container = document.getElementById(groupId);
+          if (!container) return;
+          const cards = Array.from(container.querySelectorAll("[data-toggle-card]")).filter(
+            c => c.querySelector('.toggle-head .tick-box[data-tick-role="headpoint"]')
+          );
+          const allCardsTicked = cards.length > 0 && cards.every(c => c.classList.contains("is-ticked"));
+          header.classList.toggle("is-ticked", allCardsTicked);
+          secBox.classList.toggle("is-ticked", allCardsTicked);
+        });
+      }
+
+      // 1. Subpoint click -> toggle subpoint -> auto-sync headpoint card and section header
+      document.querySelectorAll("[data-subpoint]:not([data-ignore-tick])").forEach(row => {
+        row.addEventListener("click", (e) => {
+          if (currentAnnoMode !== "cursor") return;
+          if (e.target.closest("button:not(.tick-box), .sentence-chip")) return;
+          e.stopPropagation();
+          const nextTicked = !row.classList.contains("is-ticked");
+          setSubpointRowTicked(row, nextTicked);
+          const parentCard = row.closest("[data-toggle-card]");
+          syncHeadpointCardFromSubpoints(parentCard);
+          playTone(nextTicked ? 720 : 460, 0.1, "triangle");
+        });
+      });
+
+      // 2. Headpoint .tick-box click -> toggle headpoint AND all its subpoints without closing card
+      document.querySelectorAll('.tick-box[data-tick-role="headpoint"]').forEach(box => {
+        box.addEventListener("click", (e) => {
+          if (currentAnnoMode !== "cursor") return;
+          e.stopPropagation();
+          const card = box.closest("[data-toggle-card]");
+          if (!card) return;
+          const nextTicked = !card.classList.contains("is-ticked");
+          setHeadpointCardTicked(card, nextTicked);
+          playTone(nextTicked ? 780 : 440, 0.14, "triangle");
+        });
+      });
+
+      // 3. Section header .tick-box click -> toggle section header AND all cards/subpoints in section
+      document.querySelectorAll('.tick-box[data-tick-role="section"]').forEach(box => {
+        box.addEventListener("click", (e) => {
+          if (currentAnnoMode !== "cursor") return;
+          e.stopPropagation();
+          const groupId = box.getAttribute("data-target-group");
+          const container = document.getElementById(groupId);
+          const header = box.closest("[data-group-toggle]");
+          if (!container || !header) return;
+          const nextTicked = !header.classList.contains("is-ticked");
+          container.querySelectorAll("[data-toggle-card]").forEach(c => {
+            setHeadpointCardTicked(c, nextTicked);
+          });
+          playTone(nextTicked ? 820 : 420, 0.16, "triangle");
         });
       });
 
@@ -1407,6 +2056,7 @@
         const anyClosed = cards.some(c => !c.classList.contains("open"));
         cards.forEach(c => setCardOpen(c, anyClosed));
         this.textContent = anyClosed ? "🙈 Hide Tab" : "👁️ Reveal Tab";
+        requestAnimationFrame(resizeAllCanvases);
         playTone(anyClosed ? 660 : 420, 0.14, "triangle");
       });
 
@@ -1420,6 +2070,7 @@
         document.getElementById("pageToggleAllBtn").textContent = "👁️ Reveal Tab";
         playTone(520, 0.12, "sine");
         window.scrollTo({ top: 0, behavior: "smooth" });
+        requestAnimationFrame(resizeAllCanvases);
       }
 
       document.querySelectorAll(".tab-btn").forEach(btn => {
@@ -1434,6 +2085,7 @@
         fontStep = (fontStep + 1) % scales.length;
         document.documentElement.style.setProperty("--scale", String(scales[fontStep]));
         this.textContent = labels[fontStep];
+        requestAnimationFrame(resizeAllCanvases);
       });
 
       document.getElementById("muteToggleBtn").addEventListener("click", function () {
@@ -1514,6 +2166,7 @@
         const anyClosed = cards.some(c => !c.classList.contains("open"));
         cards.forEach(c => setCardOpen(c, anyClosed));
         playTone(700, 0.18, "triangle");
+        requestAnimationFrame(resizeAllCanvases);
       });
 
       function updateExitSentence() {
@@ -1524,7 +2177,7 @@
         const wText = rBtn ? rBtn.getAttribute("data-way") : "avoid quiet places";
         const rText = rBtn ? rBtn.getAttribute("data-reason") : "being alone in a quiet flat is unsafe";
         const aText = aBtn ? aBtn.getAttribute("data-action") : "go to a bright public café";
-        document.getElementById("builtExitSentence").innerHTML = `"<strong style="color:var(--teal);">${cText}</strong>, but we should <strong style="color:var(--teal);">${wText}</strong> because <strong style="color:var(--teal);">${rText}</strong>. Let's <strong style="color:var(--teal);">${aText}</strong> instead!"`;
+        document.getElementById("builtExitSentence").innerHTML = `"<strong class="f-care">${cText}</strong>, but we should <strong class="f-way">${wText}</strong> because <strong class="f-reason">${rText}</strong>. Let's <strong class="f-sug">${aText}</strong> instead!"`;
       }
 
       document.querySelectorAll("#careChips .sentence-chip").forEach(btn => {
@@ -1562,6 +2215,434 @@
         const text = document.getElementById("builtExitSentence").textContent.replace(/"/g, "");
         speakLine(text);
       });
+
+      // ================= PEN & HIGHLIGHTER ENGINE (PER-TAB SAVED + FLOATING DRAGGABLE PALETTE) =================
+      const COLOR_MAP = {
+        yellow: { pen: "#d97706", hl: "rgba(250, 204, 21, 0.42)" },
+        red:    { pen: "#e11d48", hl: "rgba(251, 113, 133, 0.38)" },
+        blue:   { pen: "#0284c7", hl: "rgba(56, 189, 248, 0.38)" },
+        green:  { pen: "#16a34a", hl: "rgba(74, 222, 128, 0.42)" }
+      };
+
+      const tabHistory = {
+        objectives: [],
+        pretask: [],
+        whiletask: [],
+        posttask: [],
+        conclusion: []
+      };
+
+      function getActiveTabId() {
+        const activeSec = document.querySelector(".page-view.active");
+        return activeSec ? activeSec.id.replace("page-", "") : "objectives";
+      }
+
+      function resizeCanvasForSection(sec) {
+        if (!sec) return;
+        const canvas = sec.querySelector(".ink-canvas");
+        if (!canvas) return;
+        const tabId = canvas.getAttribute("data-ink-tab");
+        const rect = sec.getBoundingClientRect();
+        const w = Math.max(sec.scrollWidth, Math.round(rect.width));
+        const h = Math.max(sec.scrollHeight, Math.round(rect.height));
+        if (w <= 0 || h <= 0) return;
+        const dpr = window.devicePixelRatio || 1;
+        if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+          canvas.width = Math.round(w * dpr);
+          canvas.height = Math.round(h * dpr);
+          canvas.style.width = w + "px";
+          canvas.style.height = h + "px";
+        }
+        redrawTabCanvas(tabId);
+      }
+
+      function resizeAllCanvases() {
+        const activeSec = document.querySelector(".page-view.active");
+        if (activeSec) resizeCanvasForSection(activeSec);
+      }
+
+      function redrawTabCanvas(tabId) {
+        const canvas = document.getElementById("ink-canvas-" + tabId);
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const dpr = window.devicePixelRatio || 1;
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.scale(dpr, dpr);
+
+        const list = tabHistory[tabId] || [];
+        list.forEach(item => {
+          if (item.kind !== "stroke" || !item.points || item.points.length === 0) return;
+          ctx.save();
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+          const cObj = COLOR_MAP[item.colorKey] || COLOR_MAP.yellow;
+          ctx.strokeStyle = item.tool === "highlighter" ? cObj.hl : cObj.pen;
+          ctx.lineWidth = item.width;
+          ctx.beginPath();
+          const p0 = item.points[0];
+          ctx.moveTo(p0.x, p0.y);
+          if (item.points.length === 1) {
+            ctx.lineTo(p0.x + 0.1, p0.y + 0.1);
+          } else {
+            for (let i = 1; i < item.points.length; i++) {
+              const prev = item.points[i - 1];
+              const curr = item.points[i];
+              const mx = (prev.x + curr.x) / 2;
+              const my = (prev.y + curr.y) / 2;
+              ctx.quadraticCurveTo(prev.x, prev.y, mx, my);
+            }
+            const last = item.points[item.points.length - 1];
+            ctx.lineTo(last.x, last.y);
+          }
+          ctx.stroke();
+          ctx.restore();
+        });
+        ctx.restore();
+      }
+
+      function setAnnoMode(mode) {
+        currentAnnoMode = mode;
+        document.body.classList.remove(
+          "anno-drawing-mode",
+          "anno-mode-pen",
+          "anno-mode-highlighter",
+          "anno-mode-texthl",
+          "anno-mode-eraser"
+        );
+        if (mode === "pen" || mode === "highlighter" || mode === "eraser") {
+          document.body.classList.add("anno-drawing-mode", "anno-mode-" + mode);
+          if (mode === "pen" && currentAnnoColor === "yellow") {
+            setAnnoColor("red");
+          }
+          if (mode === "highlighter" && currentAnnoColor === "red") {
+            setAnnoColor("yellow");
+          }
+        } else if (mode === "texthl") {
+          document.body.classList.add("anno-mode-texthl");
+        }
+        document.querySelectorAll("[data-anno-mode]").forEach(btn => {
+          btn.classList.toggle("active", btn.getAttribute("data-anno-mode") === mode);
+        });
+        resizeAllCanvases();
+      }
+
+      function setAnnoColor(colorKey) {
+        currentAnnoColor = colorKey;
+        document.querySelectorAll("[data-anno-color]").forEach(sw => {
+          sw.classList.toggle("active", sw.getAttribute("data-anno-color") === colorKey);
+        });
+      }
+
+      document.querySelectorAll("[data-anno-mode]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          setAnnoMode(btn.getAttribute("data-anno-mode"));
+          playTone(540, 0.08, "sine");
+        });
+      });
+
+      document.querySelectorAll("[data-anno-color]").forEach(sw => {
+        sw.addEventListener("click", () => {
+          setAnnoColor(sw.getAttribute("data-anno-color"));
+          playTone(600, 0.08, "sine");
+        });
+      });
+
+      const HIGHLIGHTABLE_TEXT_SELECTOR = [
+        "strong",
+        ".hl-risk",
+        ".f-care",
+        ".f-way",
+        ".f-reason",
+        ".f-sug",
+        ".try-desc",
+        ".try-label",
+        ".subpoint-text",
+        ".emoji-tab-content",
+        ".toggle-title-inner span:not(.head-prefix)",
+        ".toggle-title-wrap > span",
+        ".way-btn .hang-text",
+        ".hang-text",
+        ".sentence-chip",
+        "#builtExitSentence",
+        ".way-badge",
+        ".value-pill",
+        ".tag-pill",
+        "h1",
+        "h2",
+        "h3"
+      ].join(", ");
+
+      function findHighlightableTextTarget(clientX, clientY, directTarget) {
+        const candidates = [];
+        if (directTarget && directTarget.nodeType === 1) {
+          candidates.push(directTarget);
+        }
+        if (typeof clientX === "number" && typeof clientY === "number") {
+          const fromPoint = document.elementsFromPoint(clientX, clientY);
+          for (const el of fromPoint) {
+            if (!candidates.includes(el)) candidates.push(el);
+          }
+        }
+        for (const el of candidates) {
+          if (!el || !el.closest) continue;
+          if (el.closest("#floatingPenPalette, #mainTopbar, #restoreTopbarBtn, #floatingPenLauncher")) continue;
+          if (el.closest(".toggle-chip, .toggle-hint-pill, .tick-box, .speak-mini, .primary-cta, .util-btn")) continue;
+          const existingMark = el.closest(".hl-user-mark");
+          if (existingMark) return existingMark;
+          const target = el.closest(HIGHLIGHTABLE_TEXT_SELECTOR);
+          if (target && target.closest("main.container")) return target;
+        }
+        return null;
+      }
+
+      function toggleTextElementHighlight(targetEl, tabId, forceRemove) {
+        if (!targetEl) return false;
+        const isMarked = targetEl.classList.contains("hl-user-mark");
+        const prevColor = isMarked ? (targetEl.getAttribute("data-hl-color") || "yellow") : null;
+        if (forceRemove) {
+          if (!isMarked) return false;
+          targetEl.classList.remove("hl-user-mark");
+          targetEl.removeAttribute("data-hl-color");
+          return true;
+        }
+        if (isMarked && prevColor === currentAnnoColor) {
+          targetEl.classList.remove("hl-user-mark");
+          targetEl.removeAttribute("data-hl-color");
+        } else {
+          targetEl.classList.add("hl-user-mark");
+          targetEl.setAttribute("data-hl-color", currentAnnoColor);
+          tabHistory[tabId].push({
+            kind: "texthl",
+            el: targetEl,
+            prevColor: prevColor
+          });
+        }
+        playTone(640, 0.08, "triangle");
+        return true;
+      }
+
+      function eraseStrokeOrMarkAt(tabId, x, y, clientX, clientY) {
+        const list = tabHistory[tabId];
+        if (!list) return;
+        let removedAny = false;
+        for (let i = list.length - 1; i >= 0; i--) {
+          const item = list[i];
+          if (item.kind === "stroke" && item.points) {
+            const hitRadius = Math.max(16, (item.width || 6) * 0.9);
+            const hit = item.points.some(pt => Math.hypot(pt.x - x, pt.y - y) <= hitRadius);
+            if (hit) {
+              list.splice(i, 1);
+              removedAny = true;
+              break;
+            }
+          }
+        }
+        if (removedAny) {
+          redrawTabCanvas(tabId);
+          playTone(380, 0.06, "sine");
+          return;
+        }
+        const txtTarget = findHighlightableTextTarget(clientX, clientY);
+        if (txtTarget && txtTarget.classList.contains("hl-user-mark")) {
+          toggleTextElementHighlight(txtTarget, tabId, true);
+        }
+      }
+
+      document.querySelectorAll(".ink-canvas").forEach(canvas => {
+        const tabId = canvas.getAttribute("data-ink-tab");
+        let drawing = false;
+        let activeStroke = null;
+        let startClientX = 0;
+        let startClientY = 0;
+        let maxMoveDist = 0;
+
+        function getLocalCoords(e) {
+          const rect = canvas.getBoundingClientRect();
+          return {
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top
+          };
+        }
+
+        canvas.addEventListener("pointerdown", (e) => {
+          if (currentAnnoMode !== "pen" && currentAnnoMode !== "highlighter" && currentAnnoMode !== "eraser") return;
+          e.preventDefault();
+          resizeAllCanvases();
+          if (canvas.setPointerCapture) {
+            try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
+          }
+          const pt = getLocalCoords(e);
+          startClientX = e.clientX;
+          startClientY = e.clientY;
+          maxMoveDist = 0;
+          drawing = true;
+
+          if (currentAnnoMode === "eraser") {
+            eraseStrokeOrMarkAt(tabId, pt.x, pt.y, e.clientX, e.clientY);
+            return;
+          }
+
+          activeStroke = {
+            kind: "stroke",
+            tool: currentAnnoMode,
+            colorKey: currentAnnoColor,
+            width: currentAnnoMode === "highlighter" ? 22 : 3.8,
+            points: [pt]
+          };
+          tabHistory[tabId].push(activeStroke);
+          redrawTabCanvas(tabId);
+        });
+
+        canvas.addEventListener("pointermove", (e) => {
+          if (!drawing) return;
+          const pt = getLocalCoords(e);
+          const dist = Math.hypot(e.clientX - startClientX, e.clientY - startClientY);
+          if (dist > maxMoveDist) maxMoveDist = dist;
+
+          if (currentAnnoMode === "eraser") {
+            eraseStrokeOrMarkAt(tabId, pt.x, pt.y, e.clientX, e.clientY);
+            return;
+          }
+          if (!activeStroke) return;
+          activeStroke.points.push(pt);
+          redrawTabCanvas(tabId);
+        });
+
+        function finishStroke() {
+          if (!drawing) return;
+          drawing = false;
+          if (currentAnnoMode === "highlighter" && maxMoveDist < 5 && activeStroke) {
+            const targetEl = findHighlightableTextTarget(startClientX, startClientY);
+            if (targetEl) {
+              const idx = tabHistory[tabId].indexOf(activeStroke);
+              if (idx !== -1) tabHistory[tabId].splice(idx, 1);
+              redrawTabCanvas(tabId);
+              toggleTextElementHighlight(targetEl, tabId, false);
+            }
+          }
+          activeStroke = null;
+        }
+
+        canvas.addEventListener("pointerup", finishStroke);
+        canvas.addEventListener("pointercancel", finishStroke);
+      });
+
+      document.querySelector("main.container").addEventListener("click", (e) => {
+        if (currentAnnoMode !== "texthl") return;
+        const targetEl = findHighlightableTextTarget(e.clientX, e.clientY, e.target);
+        if (targetEl) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleTextElementHighlight(targetEl, getActiveTabId(), false);
+        }
+      }, true);
+
+      document.getElementById("fpUndoBtn").addEventListener("click", () => {
+        const tabId = getActiveTabId();
+        const list = tabHistory[tabId];
+        if (!list || list.length === 0) return;
+        const last = list.pop();
+        if (last.kind === "texthl" && last.el) {
+          if (last.prevColor) {
+            last.el.classList.add("hl-user-mark");
+            last.el.setAttribute("data-hl-color", last.prevColor);
+          } else {
+            last.el.classList.remove("hl-user-mark");
+            last.el.removeAttribute("data-hl-color");
+          }
+        }
+        redrawTabCanvas(tabId);
+        playTone(440, 0.1, "sine");
+      });
+
+      document.getElementById("fpClearTabInkBtn").addEventListener("click", () => {
+        const tabId = getActiveTabId();
+        const activeSec = document.getElementById("page-" + tabId);
+        tabHistory[tabId] = [];
+        if (activeSec) {
+          activeSec.querySelectorAll(".hl-user-mark").forEach(el => {
+            el.classList.remove("hl-user-mark");
+            el.removeAttribute("data-hl-color");
+          });
+        }
+        redrawTabCanvas(tabId);
+        playTone(360, 0.14, "triangle");
+      });
+
+      document.getElementById("fpTickAllTabBtn").addEventListener("click", () => {
+        const activeSec = document.querySelector(".page-view.active");
+        if (!activeSec) return;
+        activeSec.querySelectorAll("[data-toggle-card]").forEach(c => setHeadpointCardTicked(c, true));
+        playTone(780, 0.15, "triangle");
+      });
+
+      document.getElementById("fpResetTicksTabBtn").addEventListener("click", () => {
+        const activeSec = document.querySelector(".page-view.active");
+        if (!activeSec) return;
+        activeSec.querySelectorAll("[data-toggle-card]").forEach(c => setHeadpointCardTicked(c, false));
+        playTone(420, 0.14, "sine");
+      });
+
+      const paletteEl = document.getElementById("floatingPenPalette");
+      const launcherEl = document.getElementById("floatingPenLauncher");
+      const dragHandle = document.getElementById("fpDragHandle");
+
+      function setPaletteMinimized(minimized) {
+        paletteEl.classList.toggle("minimized", minimized);
+        launcherEl.classList.toggle("visible", minimized);
+      }
+
+      document.getElementById("fpMinimizeBtn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        setPaletteMinimized(true);
+      });
+
+      launcherEl.addEventListener("click", () => {
+        setPaletteMinimized(false);
+      });
+
+      (function initDraggablePalette() {
+        let dragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        dragHandle.addEventListener("pointerdown", (e) => {
+          if (e.target.closest("button")) return;
+          dragging = true;
+          const rect = paletteEl.getBoundingClientRect();
+          offsetX = e.clientX - rect.left;
+          offsetY = e.clientY - rect.top;
+          paletteEl.style.left = rect.left + "px";
+          paletteEl.style.top = rect.top + "px";
+          paletteEl.style.right = "auto";
+          paletteEl.style.bottom = "auto";
+          if (dragHandle.setPointerCapture) {
+            try { dragHandle.setPointerCapture(e.pointerId); } catch (err) {}
+          }
+        });
+
+        dragHandle.addEventListener("pointermove", (e) => {
+          if (!dragging) return;
+          const maxX = Math.max(0, window.innerWidth - paletteEl.offsetWidth - 6);
+          const maxY = Math.max(0, window.innerHeight - paletteEl.offsetHeight - 6);
+          const nextX = Math.min(maxX, Math.max(6, e.clientX - offsetX));
+          const nextY = Math.min(maxY, Math.max(6, e.clientY - offsetY));
+          paletteEl.style.left = nextX + "px";
+          paletteEl.style.top = nextY + "px";
+        });
+
+        function stopDrag() {
+          dragging = false;
+        }
+        dragHandle.addEventListener("pointerup", stopDrag);
+        dragHandle.addEventListener("pointercancel", stopDrag);
+      })();
+
+      window.addEventListener("resize", () => requestAnimationFrame(resizeAllCanvases));
+      requestAnimationFrame(resizeAllCanvases);
+
     })();
   </script>
 </body>
