@@ -1146,6 +1146,274 @@
       display: inline-flex;
     }
 
+    /* ================= 12 VALUES INTERACTIVE BOARD (POST-TASK) ================= */
+    .pva-header-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .pva-prompt-line {
+      margin: 4px 0 0 0;
+      font-size: 0.98rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .pva-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .pva-count-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--teal-soft);
+      color: var(--ink);
+      border: 1.5px solid var(--teal-border);
+      font-weight: 800;
+      font-size: 0.84rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: all 0.18s ease;
+    }
+    .pva-count-pill.all-found {
+      background: var(--green-soft);
+      color: var(--green);
+      border-color: #86efac;
+    }
+    .pva-action-btn {
+      border: 1.5px solid var(--teal);
+      background: var(--teal);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.86rem;
+      padding: 7px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      box-shadow: 0 3px 10px rgba(42, 143, 173, 0.22);
+      transition: all 0.15s ease;
+    }
+    .pva-action-btn:hover {
+      filter: brightness(1.06);
+    }
+    .pva-action-btn.secondary {
+      background: #ffffff;
+      color: var(--ink);
+      border-color: var(--border);
+      box-shadow: none;
+    }
+    .pva-action-btn.secondary:hover {
+      background: var(--teal-soft);
+      border-color: var(--teal);
+    }
+    .pva-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+    }
+    @media (max-width: 1040px) {
+      .pva-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 680px) {
+      .pva-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 480px) {
+      .pva-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .pva-tile {
+      position: relative;
+      border: 2px solid var(--border);
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbfd 100%);
+      border-radius: 14px;
+      padding: 10px 6px 11px 6px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      min-height: 158px;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease;
+      user-select: none;
+      text-align: center;
+      font-family: inherit;
+    }
+    .pva-tile:hover {
+      border-color: var(--teal);
+      background: #f2fafe;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(18, 58, 77, 0.08);
+    }
+    .pva-tile.is-green {
+      border-color: #16a34a;
+      background: linear-gradient(180deg, #f0fdf4 0%, #dcfce7 100%);
+      box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2), 0 6px 16px rgba(22, 163, 74, 0.14);
+    }
+    .pva-tile.is-not-main {
+      border-color: #f59e0b;
+      background: linear-gradient(180deg, #fffdf5 0%, #fef3c7 100%);
+      animation: pvaNudge 0.26s ease;
+    }
+    .pva-tile.is-dimmed:not(.is-green) {
+      opacity: 0.5;
+    }
+    .pva-tile.is-dimmed:not(.is-green):hover {
+      opacity: 0.88;
+    }
+    @keyframes pvaNudge {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      75% { transform: translateX(3px); }
+    }
+    .pva-status-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 1.45rem;
+      height: 1.45rem;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      font-weight: 900;
+      opacity: 0;
+      transform: scale(0.75);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      pointer-events: none;
+    }
+    .pva-tile.is-green .pva-status-badge {
+      opacity: 1;
+      transform: scale(1);
+      background: #16a34a;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(22, 163, 74, 0.35);
+    }
+    .pva-tile.is-green .pva-status-badge::before {
+      content: "✓";
+    }
+    .pva-tile.is-not-main .pva-status-badge {
+      opacity: 1;
+      transform: scale(1);
+      background: #fde68a;
+      color: #92400e;
+      border: 1px solid #f59e0b;
+    }
+    .pva-tile.is-not-main .pva-status-badge::before {
+      content: "💭";
+      font-size: 0.76rem;
+    }
+    .pva-sticker-wrap {
+      width: 100%;
+      height: 98px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .pva-sticker-img {
+      max-width: 92%;
+      max-height: 96px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(18, 58, 77, 0.1));
+    }
+    .pva-fallback-sticker {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      border: 3px solid #ffffff;
+      border-radius: 16px;
+      padding: 6px 12px;
+      box-shadow: 0 3px 10px rgba(18, 58, 77, 0.16);
+    }
+    .pva-fallback-emoji {
+      font-size: 1.9rem;
+      line-height: 1.1;
+    }
+    .pva-fallback-zh {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--pva-ink, #123a4d);
+      margin-top: 2px;
+    }
+    /* Sticker-matched English badge matching EDB die-cut white border + vivid rounded ink */
+    .pva-eng-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      color: var(--pva-ink, #123a4d);
+      font-family: "Trebuchet MS", "Segoe UI Rounded", "Segoe UI", system-ui, sans-serif;
+      font-weight: 900;
+      font-size: 0.83rem;
+      line-height: 1.18;
+      letter-spacing: 0.01em;
+      padding: 4px 9px;
+      border-radius: 12px;
+      border: 2.5px solid #ffffff;
+      box-shadow: 0 3px 7px rgba(18, 58, 77, 0.16), 0 0 0 1px rgba(18, 58, 77, 0.07);
+      max-width: 100%;
+      text-align: center;
+    }
+    .pva-tile.is-green .pva-eng-label {
+      box-shadow: 0 3px 8px rgba(22, 163, 74, 0.24), 0 0 0 1.5px #86efac;
+    }
+    .pva-feedback-bar {
+      margin-top: 10px;
+      min-height: 1.45em;
+      font-weight: 800;
+      font-size: 0.98rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pva-feedback-bar.ok {
+      color: var(--green);
+    }
+    .pva-feedback-bar.hint {
+      color: #b45309;
+    }
+    .pva-source-link {
+      text-decoration: none;
+      background: #f1f5f9;
+      color: var(--muted);
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+    .pva-source-link:hover {
+      background: var(--teal-soft);
+      color: var(--teal);
+    }
+    .pva-answer-card {
+      display: none;
+    }
+    .pva-answer-card.is-revealed {
+      display: block;
+      animation: fadeIn 0.24s ease;
+    }
+
   </style>
 </head>
 <body>
@@ -1189,7 +1457,7 @@
               <div class="toggle-head">
                 <div class="toggle-title-wrap">
                   <div class="obj-num">1</div>
-                  <span>Spot 3 Risky Situations</span>
+                  <span>Revise the 3 Risky Situations</span>
                 </div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
@@ -1209,7 +1477,7 @@
               <div class="toggle-head">
                 <div class="toggle-title-wrap">
                   <div class="obj-num">2</div>
-                  <span>Learn 4 Ways to Cope</span>
+                  <span>Apply the 4 Ways to Cope</span>
                 </div>
                 <span class="toggle-chip">Reveal ▾</span>
               </div>
@@ -1810,9 +2078,136 @@
         </div>
       </div>
 
-      <!-- Values Grid (Headwords Only -> Click to Reveal) -->
-      <div class="card">
-        <span class="tag-pill">Values Education</span> <span class="tag-pill">📝 WORKSHEET</span>
+      <!-- 12 Values Interactive Pre-Reveal Board -->
+      <div class="card" id="pva12Card">
+        <div class="pva-header-bar" style="align-items: center;">
+          <div>
+            <span class="tag-pill">Values Education</span>
+            <h2 style="margin:0;">🧭 12 Values</h2>
+          </div>
+          <div class="pva-controls">
+            <span class="pva-count-pill" id="pva12CountPill">Selected: 0 / 4 ✓</span>
+            <button type="button" class="pva-action-btn secondary" id="reset12ValuesBtn" title="Reset all 12 tiles and hide the 4 answers">🔄 Reset</button>
+            <button type="button" class="pva-action-btn" id="reveal4ValuesBtn">🌟 Reveal the 4 Values ▾</button>
+          </div>
+        </div>
+
+        <div class="pva-grid" id="pva12Grid">
+          <button type="button" class="pva-tile" data-pva-key="filial" data-pva-target="false" data-pva-name="Filial Piety" style="--pva-ink:#6B3BA3;">
+            <span class="pva-status-badge" aria-hidden="true"></span>
+            <div class="pva-sticker-wrap">
+              <img class="pva-sticker-img" referrerpolicy="no-referrer" src="https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/PVA%20Props/PVA_Props_6.png" alt="孝親 Filial Piety" />
+              <div class="pva-fallback-sticker"><span class="pva-fallback-emoji">👨‍👩‍👧</span><span class="pva-fallback-zh">孝親</span></div>
+            </div>
+            <span class="pva-eng-label">Filial Piety</span>
+          </button>
+
+          <button type="button" class="pva-tile" data-pva-key="respect" data-pva-target="true" data-pva-name="Respect for Others" style="--pva-ink:#D95F26;">
+            <span class="pva-status-badge" aria-hidden="true"></span>
+            <div class="pva-sticker-wrap">
+              <img class="pva-sticker-img" referrerpolicy="no-referrer" src="https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/PVA%20Props/PVA_Props_5.png" alt="尊重他人 Respect for Others" />
+              <div class="pva-fallback-sticker"><span class="pva-fallback-emoji">🤝</span><span class="pva-fallback-zh">尊重他人</span></div>
+            </div>
+            <span class="pva-eng-label">Respect for Others</span>
+          </button>
+
+          <button type="button" class="pva-tile" data-pva-key="responsibility" data-pva-target="true" data-pva-name="Responsibility" style="--pva-ink:#D97706;">
+            <span class="pva-status-badge" aria-hidden="true"></span>
+            <div class="pva-sticker-wrap">
+              <img class="pva-sticker-img" referrerpolicy="no-referrer" src="https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/PVA%20Props/PVA_Props%20_4.png" alt="責任感 Responsibility" />
+              <div class="pva-fallback-sticker"><span class="pva-fallback-emoji">🛡️</span><span class="pva-fallback-zh">責任感</span></div>
+            </div>
+            <span class="pva-eng-label">Responsibility</span>
+          </button>
+
+          <button type="button" class="pva-tile" data-pva-key="diligence" data-pva-target="false" data-pva-name="Diligence" style="--pva-ink:#2F65AD;">
+            <span class="pva-status-badge" aria-hidden="true"></span>
+            <div class="pva-sticker-wrap">
+              <img class="pva-sticker-img" referrerpolicy="no-referrer" src="https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/PVA%20Props/PVA_Props_12.png" alt="勤勞 Diligence" />
+              <div class="pva-fallback-sticker"><span class="pva-fallback-emoji">🌱</span><span class="pva-fallback-zh">勤勞</span></div>
+            </div>
+            <span class="pva-eng-label">Diligence</span>
+          </button>
+
+          <button type="button" class="pva-tile" data-pva-key="national" data-pva-target="false" data-pva-name="National Identity" style="--pva-ink:#B87D00;">
+            <span class="pva-status-badge" aria-hidden="true"></span>
+            <div class="pva-sticker-wrap">
+              <img class="pva-sticker-img" referrerpolicy="no-referrer" src="https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/PVA%20Props/PVA_Props_11.png" alt="國民身份認同 National Identity" />
+              <div class="pva-fallback-sticker"><span class="pva-fallback-emoji">🏮</span><span class="pva-fallback-zh">國民身份認同</span></div>
+            </div>
+            <span class="pva-eng-label">National Identity</span>
+          </button>
+
+          <button type="button" class="pva-tile" data-pva-key="commitment" data-pva-target="false" data-pva-name="Commitment" style="--pva-ink:#B47800;">
+            <span class="pva-status-badge" aria-hidden="true"></span>
+            <div class="pva-sticker-wrap">
+              <img class="pva-sticker-img" referrerpolicy="no-referrer" src="https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/PVA%20Props/PVA_Props_10.png" alt="承擔精神 Commitment" />
+              <div class="pva-fallback-sticker"><span class="pva-fallback-emoji">🏋️</span><span class="pva-fallback-zh">承擔精神</span></div>
+            </div>
+            <span class="pva-eng-label">Commitment</span>
+          </button>
+
+          <button type="button" class="pva-tile" data-pva-key="benevolence" data-pva-target="false" data-pva-name="Benevolence" style="--pva-ink:#2E8540;">
+            <span class="pva-status-badge" aria-hidden="true"></span>
+            <div class="pva-sticker-wrap">
+              <img class="pva-sticker-img" referrerpolicy="no-referrer" src="https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/PVA%20Props/PVA_Props_1.png" alt="仁愛 Benevolence" />
+              <div class="pva-fallback-sticker"><span class="pva-fallback-emoji">🤲❤️</span><span class="pva-fallback-zh">仁愛</span></div>
+            </div>
+            <span class="pva-eng-label">Benevolence</span>
+          </button>
+
+          <button type="button" class="pva-tile" data-pva-key="law" data-pva-target="true" data-pva-name="Law-abidingness" style="--pva-ink:#1F8A91;">
+            <span class="pva-status-badge" aria-hidden="true"></span>
+            <div class="pva-sticker-wrap">
+              <img class="pva-sticker-img" referrerpolicy="no-referrer" src="https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/PVA%20Props/PVA_Props_3.png" alt="守法 Law-abidingness" />
+              <div class="pva-fallback-sticker"><span class="pva-fallback-emoji">⚖️</span><span class="pva-fallback-zh">守法</span></div>
+            </div>
+            <span class="pva-eng-label">Law-abidingness</span>
+          </button>
+
+          <button type="button" class="pva-tile" data-pva-key="empathy" data-pva-target="false" data-pva-name="Empathy" style="--pva-ink:#278399;">
+            <span class="pva-status-badge" aria-hidden="true"></span>
+            <div class="pva-sticker-wrap">
+              <img class="pva-sticker-img" referrerpolicy="no-referrer" src="https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/PVA%20Props/PVA_Props_2.png" alt="同理心 Empathy" />
+              <div class="pva-fallback-sticker"><span class="pva-fallback-emoji">💞</span><span class="pva-fallback-zh">同理心</span></div>
+            </div>
+            <span class="pva-eng-label">Empathy</span>
+          </button>
+
+          <button type="button" class="pva-tile" data-pva-key="integrity" data-pva-target="false" data-pva-name="Integrity" style="--pva-ink:#558B24;">
+            <span class="pva-status-badge" aria-hidden="true"></span>
+            <div class="pva-sticker-wrap">
+              <img class="pva-sticker-img" referrerpolicy="no-referrer" src="https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/PVA%20Props/PVA_Props_9.png" alt="誠信 Integrity" />
+              <div class="pva-fallback-sticker"><span class="pva-fallback-emoji">🤝✨</span><span class="pva-fallback-zh">誠信</span></div>
+            </div>
+            <span class="pva-eng-label">Integrity</span>
+          </button>
+
+          <button type="button" class="pva-tile" data-pva-key="unity" data-pva-target="false" data-pva-name="Unity" style="--pva-ink:#00407A;">
+            <span class="pva-status-badge" aria-hidden="true"></span>
+            <div class="pva-sticker-wrap">
+              <img class="pva-sticker-img" referrerpolicy="no-referrer" src="https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/PVA%20Props/PVA_Props_8.png" alt="團結 Unity" />
+              <div class="pva-fallback-sticker"><span class="pva-fallback-emoji">🧩</span><span class="pva-fallback-zh">團結</span></div>
+            </div>
+            <span class="pva-eng-label">Unity</span>
+          </button>
+
+          <button type="button" class="pva-tile" data-pva-key="selfdiscipline" data-pva-target="true" data-pva-name="Self-Discipline" style="--pva-ink:#9C3D8F;">
+            <span class="pva-status-badge" aria-hidden="true"></span>
+            <div class="pva-sticker-wrap">
+              <img class="pva-sticker-img" referrerpolicy="no-referrer" src="https://www.edb.gov.hk/attachment/tc/curriculum-development/4-key-tasks/moral-civic/PVA%20Props/PVA_Props_7.png" alt="堅毅 Self-Discipline" />
+              <div class="pva-fallback-sticker"><span class="pva-fallback-emoji">💪</span><span class="pva-fallback-zh">堅毅</span></div>
+            </div>
+            <span class="pva-eng-label">Self-Discipline</span>
+          </button>
+        </div>
+
+        <div class="pva-feedback-bar" id="pva12Feedback"></div>
+      </div>
+
+      <!-- Values Grid (Hidden Until 4 Values Are Revealed -> Click Headwords to Reveal Subpoints) -->
+      <div class="card pva-answer-card" id="values4AnswerCard">
+        <span class="tag-pill">Values Education · Answer</span> <span class="tag-pill">📝 WORKSHEET</span>
         <div class="section-head-toggle" data-group-toggle="values-group">
             <div class="section-head-left">
               <span class="tick-box" data-tick-role="section" data-target-group="values-group" title="Tick or untick whole section"></span>
@@ -2169,8 +2564,11 @@
       document.getElementById("pageToggleAllBtn").addEventListener("click", function () {
         const activeSec = document.querySelector(".page-view.active");
         if (!activeSec) return;
+        const isPost = activeSec.id === "page-posttask";
+        const ansCard = document.getElementById("values4AnswerCard");
         const cards = Array.from(activeSec.querySelectorAll("[data-toggle-card]"));
-        const anyClosed = cards.some(c => !c.classList.contains("open"));
+        const anyClosed = cards.some(c => !c.classList.contains("open")) || (isPost && ansCard && !ansCard.classList.contains("is-revealed"));
+        if (isPost) setFourValuesRevealed(anyClosed, false);
         cards.forEach(c => setCardOpen(c, anyClosed));
         this.textContent = anyClosed ? "🙈 Hide Tab" : "👁️ Reveal Tab";
         requestAnimationFrame(resizeAllCanvases);
@@ -2277,10 +2675,155 @@
         playTone(740, 0.2, "triangle");
       });
 
+      // ================= 12 VALUES INTERACTIVE BOARD LOGIC =================
+      const pva12Tiles = Array.from(document.querySelectorAll("#pva12Grid .pva-tile"));
+      const pva12CountPill = document.getElementById("pva12CountPill");
+      const pva12Feedback = document.getElementById("pva12Feedback");
+      const reveal4ValuesBtn = document.getElementById("reveal4ValuesBtn");
+      const reset12ValuesBtn = document.getElementById("reset12ValuesBtn");
+      const values4AnswerCard = document.getElementById("values4AnswerCard");
+
+      const pvaTargetReasons = {
+        selfdiscipline: "✓ Yes! Self-Discipline — Control strong desires and stay away from 18+ media!",
+        respect: "✓ Yes! Respect for Others — Respect our partner's limits and speak kindly with care!",
+        responsibility: "✓ Yes! Responsibility — Protect our health, our future, and our family!",
+        law: "✓ Yes! Law-abidingness — Obey Hong Kong law (under 16 is illegal)!"
+      };
+
+      document.querySelectorAll("#pva12Grid .pva-sticker-img").forEach(img => {
+        img.addEventListener("error", () => {
+          img.style.display = "none";
+          const fb = img.nextElementSibling;
+          if (fb && fb.classList.contains("pva-fallback-sticker")) {
+            fb.style.display = "flex";
+          }
+        });
+      });
+
+      function syncPva12Status() {
+        const greenCount = pva12Tiles.filter(t => t.classList.contains("is-green")).length;
+        if (pva12CountPill) {
+          pva12CountPill.textContent = greenCount === 4 ? "✅ 4 / 4 Found! 🎉" : ("Selected: " + greenCount + " / 4 ✓");
+          pva12CountPill.classList.toggle("all-found", greenCount === 4);
+        }
+        const isAnswerShown = values4AnswerCard && values4AnswerCard.classList.contains("is-revealed");
+        if (reveal4ValuesBtn) {
+          reveal4ValuesBtn.textContent = isAnswerShown ? "🙈 Hide the 4 Values ▴" : "🌟 Reveal the 4 Values ▾";
+        }
+        return greenCount;
+      }
+
+      function setFourValuesRevealed(show, updateFeedback) {
+        if (show) {
+          pva12Tiles.forEach(t => {
+            const isTarget = t.getAttribute("data-pva-target") === "true";
+            t.classList.toggle("is-green", isTarget);
+            t.classList.remove("is-not-main");
+            t.classList.toggle("is-dimmed", !isTarget);
+          });
+          if (values4AnswerCard) values4AnswerCard.classList.add("is-revealed");
+          if (updateFeedback && pva12Feedback) {
+            pva12Feedback.textContent = "🌟 Great job! Here are the 4 Key Values practised today — write them on Worksheet Part C!";
+            pva12Feedback.className = "pva-feedback-bar ok";
+          }
+        } else {
+          pva12Tiles.forEach(t => {
+            t.classList.remove("is-green", "is-not-main", "is-dimmed");
+          });
+          if (values4AnswerCard) {
+            values4AnswerCard.classList.remove("is-revealed");
+            values4AnswerCard.querySelectorAll("[data-toggle-card]").forEach(c => setCardOpen(c, false));
+          }
+          if (updateFeedback && pva12Feedback) {
+            pva12Feedback.textContent = "";
+            pva12Feedback.className = "pva-feedback-bar";
+          }
+        }
+        syncPva12Status();
+        requestAnimationFrame(resizeAllCanvases);
+      }
+
+      pva12Tiles.forEach(tile => {
+        tile.addEventListener("click", () => {
+          if (currentAnnoMode !== "cursor") return;
+          const key = tile.getAttribute("data-pva-key");
+          const name = tile.getAttribute("data-pva-name") || "This value";
+          const isTarget = tile.getAttribute("data-pva-target") === "true";
+
+          if (isTarget) {
+            const nextGreen = !tile.classList.contains("is-green");
+            tile.classList.toggle("is-green", nextGreen);
+            tile.classList.remove("is-not-main");
+            const greenCount = syncPva12Status();
+            if (nextGreen) {
+              if (greenCount === 4) {
+                pva12Tiles.forEach(t => {
+                  if (t.getAttribute("data-pva-target") !== "true") {
+                    t.classList.remove("is-not-main");
+                    t.classList.add("is-dimmed");
+                  }
+                });
+                if (values4AnswerCard) values4AnswerCard.classList.add("is-revealed");
+                syncPva12Status();
+                if (pva12Feedback) {
+                  pva12Feedback.textContent = "🎉 All 4 Key Values found! Now check and write them on Worksheet Part C below!";
+                  pva12Feedback.className = "pva-feedback-bar ok";
+                }
+                playTone(660, 0.12, "triangle");
+                setTimeout(() => playTone(880, 0.18, "triangle"), 110);
+                requestAnimationFrame(resizeAllCanvases);
+              } else {
+                if (pva12Feedback) {
+                  pva12Feedback.textContent = pvaTargetReasons[key] || ("✓ Yes! " + name + "!");
+                  pva12Feedback.className = "pva-feedback-bar ok";
+                }
+                playTone(680, 0.16, "triangle");
+              }
+            } else {
+              pva12Tiles.forEach(t => t.classList.remove("is-dimmed"));
+              if (pva12Feedback) {
+                pva12Feedback.textContent = "";
+                pva12Feedback.className = "pva-feedback-bar";
+              }
+              playTone(440, 0.08, "sine");
+            }
+          } else {
+            const nextHint = !tile.classList.contains("is-not-main");
+            pva12Tiles.forEach(t => t.classList.remove("is-not-main"));
+            tile.classList.toggle("is-not-main", nextHint);
+            if (nextHint) {
+              if (pva12Feedback) {
+                pva12Feedback.textContent = "💭 " + name + " is an important value — think which 4 values directly match today's lesson!";
+                pva12Feedback.className = "pva-feedback-bar hint";
+              }
+              playTone(300, 0.14, "sine");
+            } else {
+              if (pva12Feedback) {
+                pva12Feedback.textContent = "";
+                pva12Feedback.className = "pva-feedback-bar";
+              }
+              playTone(420, 0.08, "sine");
+            }
+          }
+        });
+      });
+
+      reveal4ValuesBtn.addEventListener("click", () => {
+        const isShown = values4AnswerCard && values4AnswerCard.classList.contains("is-revealed");
+        setFourValuesRevealed(!isShown, true);
+        playTone(!isShown ? 740 : 420, 0.16, "triangle");
+      });
+
+      reset12ValuesBtn.addEventListener("click", () => {
+        setFourValuesRevealed(false, true);
+        playTone(400, 0.12, "sine");
+      });
+
       document.getElementById("revealAllPostBtn").addEventListener("click", () => {
         const postSec = document.getElementById("page-posttask");
         const cards = Array.from(postSec.querySelectorAll("[data-toggle-card]"));
-        const anyClosed = cards.some(c => !c.classList.contains("open"));
+        const anyClosed = cards.some(c => !c.classList.contains("open")) || (values4AnswerCard && !values4AnswerCard.classList.contains("is-revealed"));
+        setFourValuesRevealed(anyClosed, false);
         cards.forEach(c => setCardOpen(c, anyClosed));
         playTone(700, 0.18, "triangle");
         requestAnimationFrame(resizeAllCanvases);
@@ -2484,6 +3027,7 @@
         ".sentence-chip",
         "#builtExitSentence",
         ".way-badge",
+        ".pva-eng-label",
         ".value-pill",
         ".tag-pill",
         "h1",
@@ -2505,7 +3049,7 @@
         for (const el of candidates) {
           if (!el || !el.closest) continue;
           if (el.closest("#floatingPenPalette, #mainTopbar, #restoreTopbarBtn, #floatingPenLauncher")) continue;
-          if (el.closest(".toggle-chip, .toggle-hint-pill, .tick-box, .speak-mini, .primary-cta, .util-btn")) continue;
+          if (el.closest(".toggle-chip, .toggle-hint-pill, .tick-box, .speak-mini, .primary-cta, .util-btn, .pva-action-btn, .pva-source-link")) continue;
           const existingMark = el.closest(".hl-user-mark");
           if (existingMark) return existingMark;
           const target = el.closest(HIGHLIGHTABLE_TEXT_SELECTOR);
