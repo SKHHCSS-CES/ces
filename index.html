@@ -1414,6 +1414,113 @@
       animation: fadeIn 0.24s ease;
     }
 
+    /* ================= WHILE-TASK SOFTSPEAK QR CODE BUTTON & MODAL ================= */
+    .banner-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .qr-launch-btn {
+      border: 2px solid var(--teal);
+      background: #ffffff;
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 7px 15px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 3px 10px rgba(18, 58, 77, 0.08);
+      transition: all 0.15s ease;
+    }
+    .qr-launch-btn:hover {
+      background: var(--teal);
+      color: #ffffff;
+    }
+    .qr-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 220;
+      background: rgba(18, 58, 77, 0.62);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .qr-modal-backdrop.open {
+      display: flex;
+      animation: fadeIn 0.18s ease;
+    }
+    .qr-modal-card {
+      background: #ffffff;
+      border: 2.5px solid var(--teal);
+      border-radius: 22px;
+      padding: 22px 26px 20px 26px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(18, 58, 77, 0.32);
+      position: relative;
+    }
+    .qr-modal-close-x {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: #f8fafc;
+      color: var(--ink);
+      font-weight: 900;
+      font-size: 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr-modal-close-x:hover {
+      background: var(--teal-soft);
+      border-color: var(--teal);
+    }
+    .qr-frame-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      border: 3px solid var(--teal-border);
+      border-radius: 18px;
+      padding: 10px;
+      margin: 10px auto 12px auto;
+      box-shadow: 0 6px 18px rgba(18, 58, 77, 0.08);
+    }
+    .qr-svg-box {
+      width: 310px;
+      height: 310px;
+      max-width: 68vw;
+      max-height: 68vw;
+      display: block;
+    }
+    .qr-url-pill {
+      display: inline-block;
+      background: var(--teal-soft);
+      color: var(--teal);
+      border: 1.5px solid var(--teal-border);
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .qr-url-pill:hover {
+      filter: brightness(0.97);
+    }
+
   </style>
 </head>
 <body>
@@ -1841,7 +1948,10 @@
           <span class="tag-pill" style="margin-bottom:2px;">2. While-Task</span> <span class="tag-pill" style="margin-bottom:2px;">📝 WORKSHEET</span>
           <h2>CES SoftSpeak Activity</h2>
         </div>
-        <a class="primary-cta" href="https://skhhcss-ces.github.io/ces-activity/" target="_blank" rel="noopener noreferrer" style="padding:8px 16px; font-size:0.9rem;">🎮 Open CES SoftSpeak ↗</a>
+        <div class="banner-cta-group">
+          <button type="button" class="qr-launch-btn" id="openSoftSpeakQrBtn">📱 QR code</button>
+          <a class="primary-cta" href="https://skhhcss-ces.github.io/ces-activity/" target="_blank" rel="noopener noreferrer" style="padding:8px 16px; font-size:0.9rem;">🎮 Open CES SoftSpeak ↗</a>
+        </div>
       </div>
 
       <!-- 3 Scenarios Preview (Headword Toggle Cards) -->
@@ -2333,6 +2443,21 @@
       </div>
     </section>
   </main>
+
+  <!-- ================= CES SOFTSPEAK QR CODE MODAL ================= -->
+  <div class="qr-modal-backdrop" id="softSpeakQrModal" role="dialog" aria-modal="true" aria-labelledby="softSpeakQrTitle">
+    <div class="qr-modal-card">
+      <button type="button" class="qr-modal-close-x" id="closeSoftSpeakQrTopBtn" title="Close QR code">✕</button>
+      <span class="tag-pill">SCAN</span>
+      <h2 id="softSpeakQrTitle" style="margin:0 0 2px 0;">🎮 CES SoftSpeak</h2>
+      <div class="qr-frame-wrap">
+        <svg class="qr-svg-box" viewBox="0 0 39 39" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" role="img" aria-label="QR Code for CES SoftSpeak"><rect width="39" height="39" fill="#ffffff" rx="2"/><path d="M3,3h7v1h-7zM12,3h1v1h-1zM14,3h2v1h-2zM21,3h6v1h-6zM29,3h7v1h-7zM3,4h1v1h-1zM9,4h1v1h-1zM13,4h1v1h-1zM18,4h2v1h-2zM21,4h1v1h-1zM23,4h2v1h-2zM29,4h1v1h-1zM35,4h1v1h-1zM3,5h1v1h-1zM5,5h3v1h-3zM9,5h1v1h-1zM11,5h5v1h-5zM17,5h1v1h-1zM19,5h1v1h-1zM22,5h6v1h-6zM29,5h1v1h-1zM31,5h3v1h-3zM35,5h1v1h-1zM3,6h1v1h-1zM5,6h3v1h-3zM9,6h1v1h-1zM11,6h2v1h-2zM15,6h1v1h-1zM21,6h1v1h-1zM24,6h1v1h-1zM27,6h1v1h-1zM29,6h1v1h-1zM31,6h3v1h-3zM35,6h1v1h-1zM3,7h1v1h-1zM5,7h3v1h-3zM9,7h1v1h-1zM11,7h4v1h-4zM16,7h5v1h-5zM23,7h3v1h-3zM29,7h1v1h-1zM31,7h3v1h-3zM35,7h1v1h-1zM3,8h1v1h-1zM9,8h1v1h-1zM11,8h2v1h-2zM15,8h3v1h-3zM21,8h2v1h-2zM26,8h2v1h-2zM29,8h1v1h-1zM35,8h1v1h-1zM3,9h7v1h-7zM11,9h1v1h-1zM13,9h1v1h-1zM15,9h1v1h-1zM17,9h1v1h-1zM19,9h1v1h-1zM21,9h1v1h-1zM23,9h1v1h-1zM25,9h1v1h-1zM27,9h1v1h-1zM29,9h7v1h-7zM11,10h2v1h-2zM15,10h1v1h-1zM17,10h1v1h-1zM19,10h1v1h-1zM22,10h5v1h-5zM3,11h1v1h-1zM5,11h5v1h-5zM13,11h1v1h-1zM16,11h2v1h-2zM20,11h1v1h-1zM22,11h1v1h-1zM25,11h3v1h-3zM29,11h5v1h-5zM5,12h1v1h-1zM11,12h2v1h-2zM14,12h1v1h-1zM16,12h1v1h-1zM19,12h2v1h-2zM22,12h2v1h-2zM25,12h2v1h-2zM29,12h2v1h-2zM32,12h2v1h-2zM35,12h1v1h-1zM3,13h2v1h-2zM6,13h1v1h-1zM9,13h2v1h-2zM12,13h1v1h-1zM15,13h6v1h-6zM25,13h1v1h-1zM27,13h2v1h-2zM31,13h1v1h-1zM33,13h1v1h-1zM6,14h3v1h-3zM14,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM20,14h4v1h-4zM27,14h1v1h-1zM29,14h1v1h-1zM31,14h5v1h-5zM3,15h1v1h-1zM6,15h2v1h-2zM9,15h3v1h-3zM13,15h2v1h-2zM17,15h1v1h-1zM19,15h1v1h-1zM22,15h7v1h-7zM31,15h2v1h-2zM5,16h4v1h-4zM10,16h1v1h-1zM14,16h1v1h-1zM16,16h1v1h-1zM18,16h1v1h-1zM21,16h1v1h-1zM24,16h1v1h-1zM27,16h1v1h-1zM29,16h1v1h-1zM32,16h1v1h-1zM34,16h2v1h-2zM5,17h6v1h-6zM12,17h1v1h-1zM14,17h6v1h-6zM23,17h1v1h-1zM28,17h2v1h-2zM32,17h3v1h-3zM3,18h2v1h-2zM6,18h3v1h-3zM10,18h9v1h-9zM21,18h1v1h-1zM24,18h3v1h-3zM28,18h6v1h-6zM4,19h1v1h-1zM6,19h1v1h-1zM9,19h3v1h-3zM13,19h1v1h-1zM15,19h1v1h-1zM18,19h1v1h-1zM20,19h1v1h-1zM26,19h3v1h-3zM30,19h2v1h-2zM35,19h1v1h-1zM4,20h1v1h-1zM6,20h2v1h-2zM10,20h1v1h-1zM12,20h3v1h-3zM16,20h2v1h-2zM19,20h1v1h-1zM21,20h2v1h-2zM24,20h1v1h-1zM26,20h1v1h-1zM28,20h3v1h-3zM32,20h4v1h-4zM3,21h1v1h-1zM8,21h4v1h-4zM13,21h3v1h-3zM17,21h2v1h-2zM21,21h1v1h-1zM23,21h2v1h-2zM27,21h1v1h-1zM29,21h3v1h-3zM33,21h2v1h-2zM3,22h1v1h-1zM5,22h4v1h-4zM12,22h1v1h-1zM14,22h1v1h-1zM16,22h2v1h-2zM19,22h1v1h-1zM22,22h1v1h-1zM24,22h2v1h-2zM27,22h2v1h-2zM30,22h5v1h-5zM4,23h1v1h-1zM7,23h3v1h-3zM11,23h2v1h-2zM16,23h2v1h-2zM21,23h1v1h-1zM24,23h1v1h-1zM26,23h3v1h-3zM30,23h3v1h-3zM34,23h1v1h-1zM3,24h1v1h-1zM6,24h3v1h-3zM11,24h1v1h-1zM14,24h1v1h-1zM16,24h1v1h-1zM18,24h3v1h-3zM23,24h1v1h-1zM25,24h5v1h-5zM33,24h1v1h-1zM35,24h1v1h-1zM3,25h1v1h-1zM6,25h1v1h-1zM9,25h2v1h-2zM14,25h1v1h-1zM16,25h2v1h-2zM21,25h2v1h-2zM24,25h2v1h-2zM30,25h1v1h-1zM32,25h3v1h-3zM3,26h1v1h-1zM5,26h3v1h-3zM11,26h5v1h-5zM17,26h1v1h-1zM19,26h1v1h-1zM21,26h5v1h-5zM27,26h3v1h-3zM32,26h4v1h-4zM3,27h1v1h-1zM6,27h1v1h-1zM9,27h1v1h-1zM12,27h1v1h-1zM17,27h1v1h-1zM20,27h1v1h-1zM22,27h2v1h-2zM25,27h7v1h-7zM35,27h1v1h-1zM11,28h5v1h-5zM20,28h1v1h-1zM22,28h2v1h-2zM27,28h1v1h-1zM31,28h1v1h-1zM33,28h1v1h-1zM35,28h1v1h-1zM3,29h7v1h-7zM12,29h1v1h-1zM16,29h3v1h-3zM20,29h1v1h-1zM23,29h1v1h-1zM25,29h3v1h-3zM29,29h1v1h-1zM31,29h1v1h-1zM33,29h2v1h-2zM3,30h1v1h-1zM9,30h1v1h-1zM11,30h5v1h-5zM20,30h2v1h-2zM23,30h1v1h-1zM26,30h2v1h-2zM31,30h5v1h-5zM3,31h1v1h-1zM5,31h3v1h-3zM9,31h1v1h-1zM11,31h6v1h-6zM18,31h2v1h-2zM23,31h3v1h-3zM27,31h6v1h-6zM3,32h1v1h-1zM5,32h3v1h-3zM9,32h1v1h-1zM11,32h1v1h-1zM14,32h1v1h-1zM16,32h1v1h-1zM18,32h1v1h-1zM21,32h1v1h-1zM24,32h1v1h-1zM26,32h1v1h-1zM28,32h1v1h-1zM31,32h1v1h-1zM33,32h1v1h-1zM35,32h1v1h-1zM3,33h1v1h-1zM5,33h3v1h-3zM9,33h1v1h-1zM11,33h1v1h-1zM13,33h1v1h-1zM16,33h1v1h-1zM18,33h2v1h-2zM23,33h1v1h-1zM29,33h2v1h-2zM32,33h1v1h-1zM3,34h1v1h-1zM9,34h1v1h-1zM15,34h4v1h-4zM24,34h3v1h-3zM28,34h1v1h-1zM31,34h3v1h-3zM3,35h7v1h-7zM11,35h1v1h-1zM15,35h1v1h-1zM18,35h1v1h-1zM20,35h1v1h-1zM25,35h3v1h-3zM30,35h1v1h-1zM32,35h1v1h-1zM34,35h1v1h-1z" fill="#000000"/></svg>
+      </div>
+      <div>
+        <a class="qr-url-pill" href="https://skhhcss-ces.github.io/ces-activity/" target="_blank" rel="noopener noreferrer">https://skhhcss-ces.github.io/ces-activity/</a>
+      </div>
+    </div>
+  </div>
 
   <!-- ================= FLOATING DRAGGABLE PEN & HIGHLIGHTER PALETTE ================= -->
   <aside class="floating-palette" id="floatingPenPalette" aria-label="Pen and Highlighter Palette">
@@ -2870,6 +2995,24 @@
         });
       });
 
+      // SoftSpeak QR Code Modal Controls
+      const softSpeakQrModal = document.getElementById("softSpeakQrModal");
+      function setSoftSpeakQrOpen(isOpen) {
+        if (!softSpeakQrModal) return;
+        softSpeakQrModal.classList.toggle("open", isOpen);
+        playTone(isOpen ? 620 : 440, 0.1, "sine");
+      }
+      document.getElementById("openSoftSpeakQrBtn").addEventListener("click", () => setSoftSpeakQrOpen(true));
+      document.getElementById("closeSoftSpeakQrTopBtn").addEventListener("click", () => setSoftSpeakQrOpen(false));
+      softSpeakQrModal.addEventListener("click", (e) => {
+        if (e.target === softSpeakQrModal) setSoftSpeakQrOpen(false);
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && softSpeakQrModal.classList.contains("open")) {
+          setSoftSpeakQrOpen(false);
+        }
+      });
+
       document.getElementById("speakExitBtn").addEventListener("click", (e) => {
         e.stopPropagation();
         const text = document.getElementById("builtExitSentence").textContent.replace(/"/g, "");
@@ -3049,7 +3192,7 @@
         for (const el of candidates) {
           if (!el || !el.closest) continue;
           if (el.closest("#floatingPenPalette, #mainTopbar, #restoreTopbarBtn, #floatingPenLauncher")) continue;
-          if (el.closest(".toggle-chip, .toggle-hint-pill, .tick-box, .speak-mini, .primary-cta, .util-btn, .pva-action-btn, .pva-source-link")) continue;
+          if (el.closest(".toggle-chip, .toggle-hint-pill, .tick-box, .speak-mini, .primary-cta, .util-btn, .pva-action-btn, .pva-source-link, .qr-launch-btn, #softSpeakQrModal")) continue;
           const existingMark = el.closest(".hl-user-mark");
           if (existingMark) return existingMark;
           const target = el.closest(HIGHLIGHTABLE_TEXT_SELECTOR);
